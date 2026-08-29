@@ -35,9 +35,9 @@ function Logo() {
   );
 }
 
-interface NavbarProps { dark: boolean; onToggleDark: () => void; }
+interface NavbarProps { dark: boolean; onToggleDark: () => void; onContact: () => void; }
 
-export default function Navbar({ dark, onToggleDark }: NavbarProps) {
+export default function Navbar({ dark, onToggleDark, onContact }: NavbarProps) {
   const [scrolled, setScrolled]     = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
 
@@ -144,13 +144,13 @@ export default function Navbar({ dark, onToggleDark }: NavbarProps) {
             style={{ borderColor: "var(--blue)", color: "var(--blue)", background: "transparent" }}
             onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.background = "var(--blue-bg)"; }}
             onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.background = "transparent"; }}
-            onClick={() => go("#how-it-works")}
+            onClick={onContact}
           >
             Book a Demo
           </button>
           <button
             className="text-sm px-5 py-2 rounded-xl font-semibold text-white btn-primary focus:outline-none"
-            onClick={() => go("#pricing")}
+            onClick={onContact}
           >
             Get Started
           </button>
@@ -220,8 +220,8 @@ export default function Navbar({ dark, onToggleDark }: NavbarProps) {
           </ul>
           <div className="flex flex-col gap-2 pt-3 border-t theme-transition" style={{ borderColor:"var(--border)" }}>
             <a href="#" className="text-sm px-4 py-2.5 rounded-xl text-center font-medium transition-colors" style={{ color:"var(--text-2)", border:`1px solid var(--border)` }}>Login</a>
-            <button className="text-sm px-4 py-2.5 rounded-xl text-center font-semibold border-2 transition-colors" style={{ borderColor:"var(--blue)", color:"var(--blue)" }} onClick={() => go("#how-it-works")}>Book a Demo</button>
-            <button className="text-sm px-4 py-3 rounded-xl font-semibold text-center text-white btn-primary" onClick={() => go("#pricing")}>Get Started</button>
+            <button className="text-sm px-4 py-2.5 rounded-xl text-center font-semibold border-2 transition-colors" style={{ borderColor:"var(--blue)", color:"var(--blue)" }} onClick={onContact}>Book a Demo</button>
+            <button className="text-sm px-4 py-3 rounded-xl font-semibold text-center text-white btn-primary" onClick={onContact}>Get Started</button>
           </div>
         </div>
       )}

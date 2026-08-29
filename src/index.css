@@ -7,29 +7,43 @@
    LIGHT MODE  (default)
 ══════════════════════════════════════════ */
 :root {
+  /* Backgrounds */
+  --bg:        #F0F4FF;
   --bg-1:      #FFFFFF;
   --bg-2:      #F8FAFC;
   --bg-3:      #F1F5F9;
   --surface:   #FFFFFF;
   --card:      #FFFFFF;
 
-  --border:    #E2E8F0;
-  --border-2:  #CBD5E1;
+  /* Borders */
+  --border:        #E2E8F0;
+  --border-2:      #CBD5E1;
+  --border-strong: #94A3B8;
 
-  --text-1:    #0F172A;
-  --text-2:    #475569;
-  --text-3:    #94A3B8;
+  /* Text */
+  --text-1: #0F172A;
+  --text-2: #475569;
+  --text-3: #94A3B8;
+  --text-4: #94A3B8;
 
-  --blue:      #2563EB;
-  --blue-2:    #1D4ED8;
-  --blue-bg:   #EFF6FF;
-  --blue-soft: #DBEAFE;
-  --blue-border:#BFDBFE;
+  /* Blue */
+  --blue:        #2563EB;
+  --blue-2:      #1D4ED8;
+  --blue-bg:     #EFF6FF;
+  --blue-soft:   rgba(37,99,235,0.15);
+  --blue-border: #BFDBFE;
 
+  /* Green */
+  --green:        #059669;
+  --green-bg:     #ECFDF5;
+  --green-border: #A7F3D0;
+
+  /* Shadows */
   --card-shadow: 0 1px 3px rgba(0,0,0,0.06), 0 4px 16px rgba(0,0,0,0.04);
   --card-hover:  0 8px 32px rgba(37,99,235,0.12), 0 2px 8px rgba(0,0,0,0.06);
 
-  --navbar-bg: rgba(255,255,255,0.92);
+  /* Navbar */
+  --navbar-bg:     rgba(255,255,255,0.92);
   --navbar-border: #E2E8F0;
 
   --scrollbar: #CBD5E1;
@@ -39,30 +53,44 @@
    DARK MODE
 ══════════════════════════════════════════ */
 [data-theme="dark"] {
+  /* Backgrounds */
+  --bg:        #060D1F;
   --bg-1:      #060D1F;
   --bg-2:      #080F26;
   --bg-3:      #0C1530;
   --surface:   #0C1530;
   --card:      #0C1530;
 
-  --border:    rgba(148,163,184,0.1);
-  --border-2:  rgba(148,163,184,0.18);
+  /* Borders */
+  --border:        rgba(148,163,184,0.12);
+  --border-2:      rgba(148,163,184,0.2);
+  --border-strong: rgba(148,163,184,0.35);
 
-  --text-1:    #F1F5F9;
-  --text-2:    #94A3B8;
-  --text-3:    #475569;
+  /* Text */
+  --text-1: #F1F5F9;
+  --text-2: #94A3B8;
+  --text-3: #475569;
+  --text-4: #475569;
 
-  --blue:      #3B82F6;
-  --blue-2:    #2563EB;
-  --blue-bg:   rgba(37,99,235,0.12);
-  --blue-soft: rgba(37,99,235,0.2);
-  --blue-border: rgba(59,130,246,0.3);
+  /* Blue */
+  --blue:        #3B82F6;
+  --blue-2:      #2563EB;
+  --blue-bg:     rgba(37,99,235,0.14);
+  --blue-soft:   rgba(37,99,235,0.22);
+  --blue-border: rgba(59,130,246,0.35);
 
-  --card-shadow: 0 1px 3px rgba(0,0,0,0.4), 0 4px 16px rgba(0,0,0,0.3);
-  --card-hover:  0 8px 32px rgba(37,99,235,0.2), 0 0 0 1px rgba(59,130,246,0.2);
+  /* Green */
+  --green:        #10B981;
+  --green-bg:     rgba(5,150,105,0.14);
+  --green-border: rgba(5,150,105,0.35);
 
-  --navbar-bg: rgba(6,13,31,0.92);
-  --navbar-border: rgba(148,163,184,0.09);
+  /* Shadows */
+  --card-shadow: 0 1px 3px rgba(0,0,0,0.5), 0 4px 16px rgba(0,0,0,0.35);
+  --card-hover:  0 8px 32px rgba(37,99,235,0.22), 0 0 0 1px rgba(59,130,246,0.22);
+
+  /* Navbar */
+  --navbar-bg:     rgba(6,13,31,0.94);
+  --navbar-border: rgba(148,163,184,0.1);
 
   --scrollbar: rgba(59,130,246,0.3);
 }
@@ -199,6 +227,35 @@ h1,h2,h3,h4,h5 { font-family: 'Instrument Sans', sans-serif; }
 ::-webkit-scrollbar-thumb  { background: var(--scrollbar); border-radius: 4px; }
 
 /* ══════════════════════════════════════════
+   DARK MODE — MOCKUP PANEL OVERRIDES
+   These override Tailwind bg-slate-* / text-slate-* 
+   classes used inside dashboard/phone/security mockups
+══════════════════════════════════════════ */
+[data-theme="dark"] .mockup-surface       { background: #0C1530 !important; border-color: rgba(148,163,184,0.1) !important; }
+[data-theme="dark"] .mockup-panel         { background: #111D3D !important; border-color: rgba(148,163,184,0.08) !important; }
+[data-theme="dark"] .mockup-chrome        { background: #080F22 !important; border-color: rgba(148,163,184,0.09) !important; }
+
+/* Tailwind bg-white inside dark sections */
+[data-theme="dark"] .dm-card             { background: #0C1530 !important; border-color: rgba(148,163,184,0.1) !important; }
+
+/* ══════════════════════════════════════════
+   CONTACT MODAL OVERLAY
+══════════════════════════════════════════ */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  background: rgba(0,0,0,0.5);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  animation: fade-in-up 0.2s ease forwards;
+}
+
+/* ══════════════════════════════════════════
    REDUCED MOTION
 ══════════════════════════════════════════ */
 @media (prefers-reduced-motion: reduce) {
@@ -206,4 +263,5 @@ h1,h2,h3,h4,h5 { font-family: 'Instrument Sans', sans-serif; }
   .animate-bounce-sm, .animate-spin-slow { animation: none !important; }
   .section-fade { opacity: 1 !important; transform: none !important; transition: none !important; }
   .btn-primary  { transition: none !important; }
+  .modal-overlay { animation: none !important; }
 }
