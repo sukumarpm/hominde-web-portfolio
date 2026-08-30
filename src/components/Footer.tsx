@@ -1,8 +1,8 @@
-const sections = [
+const footerSections = [
   { title:"Product",   links:[{l:"Platform",href:"#product"},{l:"Features",href:"#features"},{l:"Security",href:"#security"},{l:"Pricing",href:"#pricing"}] },
   { title:"Solutions", links:[{l:"Apartments",href:"#how-it-works"},{l:"Gated Communities",href:"#how-it-works"},{l:"Property Managers",href:"#how-it-works"},{l:"Residential Towers",href:"#how-it-works"}] },
-  { title:"Resources", links:[{l:"Documentation",href:"#"},{l:"Help Center",href:"#"},{l:"FAQs",href:"#faq"},{l:"Contact",href:"#"}] },
-  { title:"Company",   links:[{l:"About",href:"#"},{l:"Careers",href:"#"},{l:"Contact",href:"#"}] },
+  { title:"Resources", links:[{l:"Documentation",href:"#"},{l:"Help Center",href:"#"},{l:"FAQs",href:"#faq"},{l:"Contact Us",href:"#contact"}] },
+  { title:"Company",   links:[{l:"About",href:"#"},{l:"Careers",href:"#"},{l:"Contact",href:"#contact"}] },
   { title:"Legal",     links:[{l:"Privacy Policy",href:"#"},{l:"Terms of Service",href:"#"}] },
 ];
 
@@ -12,77 +12,130 @@ const socials = [
   { label:"YouTube",   path:"M8.051 1.999h.089c.822.003 4.987.033 6.11.335a2.01 2.01 0 0 1 1.415 1.42c.101.38.172.883.22 1.402l.01.104.022.26.008.104c.065.914.073 1.77.074 1.957v.075c-.001.194-.01 1.108-.082 2.06l-.008.105-.009.104c-.05.572-.124 1.14-.235 1.558a2.007 2.007 0 0 1-1.415 1.42c-1.16.312-5.569.334-6.18.335h-.142c-.309 0-1.587-.006-2.927-.052l-.17-.006-.087-.004-.171-.007-.171-.007c-1.11-.049-2.167-.128-2.654-.26a2.007 2.007 0 0 1-1.415-1.419c-.111-.417-.185-.986-.235-1.558L.09 9.82l-.008-.104A31.4 31.4 0 0 1 0 7.68v-.123c.002-.215.01-.958.064-1.778l.007-.103.003-.052.008-.104.022-.26.01-.104c.048-.519.119-1.023.22-1.402a2.007 2.007 0 0 1 1.415-1.42c.487-.13 1.544-.21 2.654-.26l.17-.007.172-.006.086-.003.171-.007A99.788 99.788 0 0 1 7.858 2h.193zM6.4 5.209v4.818l4.157-2.408L6.4 5.209z" },
 ];
 
-function go(e: React.MouseEvent<HTMLAnchorElement>, href: string) {
+function goNav(e: React.MouseEvent<HTMLAnchorElement>, href: string, onContact?: () => void) {
+  if (href === "#contact" && onContact) {
+    e.preventDefault();
+    onContact();
+    return;
+  }
   if (href.startsWith("#") && href !== "#") {
     e.preventDefault();
-    document.querySelector(href)?.scrollIntoView({ behavior:"smooth" });
+    document.querySelector(href)?.scrollIntoView({ behavior: "smooth" });
   }
 }
 
-export default function Footer() {
+interface FooterProps { onContact?: () => void; }
+
+export default function Footer({ onContact }: FooterProps) {
   const year = new Date().getFullYear();
   return (
-    <footer className="pt-16 pb-8 px-6 border-t theme-transition" style={{ background:"var(--bg-2)", borderColor:"var(--border)" }} aria-label="Site footer">
+    <footer
+      className="pt-16 pb-8 px-6 border-t theme-transition"
+      style={{ background: "var(--bg-2)", borderColor: "var(--border)" }}
+      aria-label="Site footer"
+    >
       <div className="max-w-6xl mx-auto">
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-8 mb-14">
 
-          {/* Brand */}
+          {/* ── Brand column ── */}
           <div className="col-span-2 sm:col-span-3 md:col-span-2">
             <a href="#" className="flex items-center gap-2.5 mb-4 w-fit focus:outline-none" aria-label="Hominode home">
-              <div className="w-8 h-8 rounded-xl flex items-center justify-center flex-shrink-0" style={{ background:"linear-gradient(135deg,#2563EB,#6366F1)" }}>
+              <div
+                className="w-8 h-8 rounded-xl flex items-center justify-center flex-shrink-0"
+                style={{ background: "linear-gradient(135deg,#2563EB,#6366F1)" }}
+              >
                 <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
                   <circle cx="9" cy="9" r="3" fill="white"/>
-                  <circle cx="9" cy="2" r="1.5" fill="white" opacity="0.7"/><circle cx="9" cy="16" r="1.5" fill="white" opacity="0.7"/>
-                  <circle cx="2" cy="9" r="1.5" fill="white" opacity="0.7"/><circle cx="16" cy="9" r="1.5" fill="white" opacity="0.7"/>
-                  <line x1="9" y1="3.5" x2="9" y2="6" stroke="white" strokeWidth="1" opacity="0.5"/>
-                  <line x1="9" y1="12" x2="9" y2="14.5" stroke="white" strokeWidth="1" opacity="0.5"/>
-                  <line x1="3.5" y1="9" x2="6" y2="9" stroke="white" strokeWidth="1" opacity="0.5"/>
-                  <line x1="12" y1="9" x2="14.5" y2="9" stroke="white" strokeWidth="1" opacity="0.5"/>
+                  <circle cx="9" cy="2"  r="1.5" fill="white" opacity="0.7"/>
+                  <circle cx="9" cy="16" r="1.5" fill="white" opacity="0.7"/>
+                  <circle cx="2" cy="9"  r="1.5" fill="white" opacity="0.7"/>
+                  <circle cx="16" cy="9" r="1.5" fill="white" opacity="0.7"/>
+                  <line x1="9"   y1="3.5"  x2="9"   y2="6"    stroke="white" strokeWidth="1" opacity="0.5"/>
+                  <line x1="9"   y1="12"   x2="9"   y2="14.5" stroke="white" strokeWidth="1" opacity="0.5"/>
+                  <line x1="3.5" y1="9"    x2="6"   y2="9"    stroke="white" strokeWidth="1" opacity="0.5"/>
+                  <line x1="12"  y1="9"    x2="14.5" y2="9"   stroke="white" strokeWidth="1" opacity="0.5"/>
                 </svg>
               </div>
-              <span className="text-base font-bold tracking-tight theme-transition" style={{ fontFamily:"Instrument Sans,sans-serif", color:"var(--text-1)" }}>HOMINODE</span>
+              <span
+                className="text-base font-bold tracking-tight theme-transition"
+                style={{ fontFamily: "Instrument Sans,sans-serif", color: "var(--text-1)" }}
+              >
+                HOMINODE
+              </span>
             </a>
 
-            <p className="text-sm leading-relaxed mb-5 max-w-xs" style={{ color:"var(--text-2)" }}>
+            <p className="text-sm leading-relaxed mb-4 max-w-xs" style={{ color: "var(--text-2)" }}>
               One smart platform for your entire residential community.
             </p>
 
-            <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold mb-6" style={{ background:"var(--blue-bg)", border:"1px solid var(--blue-border)", color:"var(--blue)" }}>
-              <span className="w-1 h-1 rounded-full" style={{ background:"var(--blue)" }} aria-hidden="true"/>
+            {/* Book a demo CTA in footer */}
+            {onContact && (
+              <button
+                onClick={onContact}
+                className="flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-semibold text-white btn-primary mb-5 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400"
+              >
+                <svg width="13" height="13" viewBox="0 0 13 13" fill="none" aria-hidden="true">
+                  <rect x="1" y="2" width="11" height="9" rx="1.5" stroke="currentColor" strokeWidth="1.3"/>
+                  <path d="M1 4.5l5.5 4 5.5-4" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round"/>
+                </svg>
+                Book a Demo
+              </button>
+            )}
+
+            <div
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold mb-6"
+              style={{ background: "var(--blue-bg)", border: "1px solid var(--blue-border)", color: "var(--blue)" }}
+            >
+              <span className="w-1 h-1 rounded-full" style={{ background: "var(--blue)" }} aria-hidden="true"/>
               Connect. Manage. Live.
             </div>
 
+            {/* Socials */}
             <div className="flex gap-2.5" role="list" aria-label="Social media links">
               {socials.map((s) => (
                 <a
                   key={s.label} href="#"
                   aria-label={s.label}
                   className="w-8 h-8 flex items-center justify-center rounded-lg transition-all duration-150 focus:outline-none theme-transition"
-                  style={{ background:"var(--bg-3)", border:"1px solid var(--border)", color:"var(--text-2)" }}
-                  onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.color="var(--blue)"; (e.currentTarget as HTMLElement).style.borderColor="var(--blue-border)"; (e.currentTarget as HTMLElement).style.background="var(--blue-bg)"; }}
-                  onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.color="var(--text-2)"; (e.currentTarget as HTMLElement).style.borderColor="var(--border)"; (e.currentTarget as HTMLElement).style.background="var(--bg-3)"; }}
+                  style={{ background: "var(--bg-3)", border: "1px solid var(--border)", color: "var(--text-2)" }}
+                  onMouseEnter={e => {
+                    const el = e.currentTarget as HTMLElement;
+                    el.style.color      = "var(--blue)";
+                    el.style.borderColor = "var(--blue-border)";
+                    el.style.background  = "var(--blue-bg)";
+                  }}
+                  onMouseLeave={e => {
+                    const el = e.currentTarget as HTMLElement;
+                    el.style.color      = "var(--text-2)";
+                    el.style.borderColor = "var(--border)";
+                    el.style.background  = "var(--bg-3)";
+                  }}
                   role="listitem"
                 >
-                  <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d={s.path}/></svg>
+                  <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
+                    <path d={s.path}/>
+                  </svg>
                 </a>
               ))}
             </div>
           </div>
 
-          {/* Link columns */}
-          {sections.map((sec) => (
+          {/* ── Link columns ── */}
+          {footerSections.map((sec) => (
             <div key={sec.title}>
-              <p className="text-xs font-semibold tracking-wider uppercase mb-4" style={{ color:"var(--text-3)" }}>{sec.title}</p>
+              <p className="text-xs font-semibold tracking-wider uppercase mb-4" style={{ color: "var(--text-3)" }}>
+                {sec.title}
+              </p>
               <ul className="flex flex-col gap-2.5" role="list">
                 {sec.links.map((link) => (
                   <li key={link.l}>
                     <a
                       href={link.href}
                       className="text-sm transition-colors duration-150 focus:outline-none"
-                      style={{ color:"var(--text-2)" }}
-                      onClick={(e) => go(e, link.href)}
-                      onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.color="var(--blue)"; }}
-                      onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.color="var(--text-2)"; }}
+                      style={{ color: "var(--text-2)" }}
+                      onClick={e => goNav(e, link.href, onContact)}
+                      onMouseEnter={e => { (e.currentTarget as HTMLElement).style.color = "var(--blue)"; }}
+                      onMouseLeave={e => { (e.currentTarget as HTMLElement).style.color = "var(--text-2)"; }}
                     >
                       {link.l}
                     </a>
@@ -93,13 +146,23 @@ export default function Footer() {
           ))}
         </div>
 
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-3 pt-6 border-t theme-transition" style={{ borderColor:"var(--border)" }}>
-          <p className="text-xs" style={{ color:"var(--text-3)" }}>&copy; {year} Hominode. All rights reserved.</p>
+        {/* ── Bottom bar ── */}
+        <div
+          className="flex flex-col sm:flex-row items-center justify-between gap-3 pt-6 border-t theme-transition"
+          style={{ borderColor: "var(--border)" }}
+        >
+          <p className="text-xs" style={{ color: "var(--text-3)" }}>
+            &copy; {year} Hominode. All rights reserved.
+          </p>
           <div className="flex items-center gap-4">
-            {["Privacy Policy","Terms of Service"].map((t) => (
-              <a key={t} href="#" className="text-xs transition-colors" style={{ color:"var(--text-3)" }}
-                onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.color="var(--blue)"; }}
-                onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.color="var(--text-3)"; }}>
+            {["Privacy Policy", "Terms of Service"].map((t) => (
+              <a
+                key={t} href="#"
+                className="text-xs transition-colors"
+                style={{ color: "var(--text-3)" }}
+                onMouseEnter={e => { (e.currentTarget as HTMLElement).style.color = "var(--blue)"; }}
+                onMouseLeave={e => { (e.currentTarget as HTMLElement).style.color = "var(--text-3)"; }}
+              >
                 {t}
               </a>
             ))}

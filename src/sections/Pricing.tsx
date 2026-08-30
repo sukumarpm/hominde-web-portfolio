@@ -2,7 +2,7 @@ import { useState } from "react";
 
 const plans = [
   {
-    name:"Starter",      tagline:"For small communities getting started",      highlight:false, badge:null,          note:"Per month, billed monthly",
+    name:"Starter",      tagline:"For small communities getting started",      highlight:false, badge:null, note:"Per month, billed monthly",
     features:[
       {text:"1 building",           included:true},  {text:"Up to 100 flats",          included:true},
       {text:"2 Admin users",        included:true},  {text:"5 Security users",          included:true},
@@ -24,7 +24,7 @@ const plans = [
     ],
   },
   {
-    name:"Enterprise",   tagline:"For large organisations & property managers", highlight:false, badge:null,          note:null,
+    name:"Enterprise",   tagline:"For large organisations & property managers", highlight:false, badge:null, note:null,
     features:[
       {text:"Unlimited buildings",  included:true},  {text:"Unlimited flats",           included:true},
       {text:"Unlimited admin users",included:true},  {text:"Unlimited security users",  included:true},
@@ -39,18 +39,28 @@ const plans = [
 function CheckIcon({ included }: { included: boolean }) {
   if (included) return (
     <svg width="15" height="15" viewBox="0 0 15 15" fill="none" aria-hidden="true" className="flex-shrink-0">
-      <circle cx="7.5" cy="7.5" r="6.5" fill="#ECFDF5"/><path d="M4.5 7.5l2 2 4-4" stroke="#059669" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+      <circle cx="7.5" cy="7.5" r="6.5" fill="#ECFDF5"/>
+      <path d="M4.5 7.5l2 2 4-4" stroke="#059669" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
     </svg>
   );
   return (
     <svg width="15" height="15" viewBox="0 0 15 15" fill="none" aria-hidden="true" className="flex-shrink-0">
-      <circle cx="7.5" cy="7.5" r="6.5" fill="var(--bg-3)"/><path d="M5 5l5 5M10 5l-5 5" stroke="var(--text-3)" strokeWidth="1.5" strokeLinecap="round"/>
+      <circle cx="7.5" cy="7.5" r="6.5" fill="var(--bg-3)"/>
+      <path d="M5 5l5 5M10 5l-5 5" stroke="var(--text-3)" strokeWidth="1.5" strokeLinecap="round"/>
     </svg>
   );
 }
 
-export default function Pricing() {
+interface PricingProps { onContact?: () => void; }
+
+export default function Pricing({ onContact }: PricingProps) {
   const [yearly, setYearly] = useState(false);
+
+  const handleCTA = (planName: string) => {
+    if (onContact) { onContact(); return; }
+    document.querySelector("#contact")?.scrollIntoView({ behavior: "smooth" });
+    void planName;
+  };
 
   return (
     <section id="pricing" className="py-28 px-6 section-fade theme-transition" style={{ background:"var(--bg-2)" }} aria-labelledby="pricing-heading">
@@ -114,7 +124,8 @@ export default function Pricing() {
                   </p>
                 </div>
                 <button
-                  className="w-full py-2.5 rounded-xl text-sm font-semibold transition-all duration-200 focus:outline-none"
+                  onClick={() => handleCTA(plan.name)}
+                  className="w-full py-2.5 rounded-xl text-sm font-semibold transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400"
                   style={
                     plan.highlight
                       ? { background:"linear-gradient(135deg,#2563EB,#1D4ED8)", color:"#fff", boxShadow:"0 4px 16px rgba(37,99,235,0.4)" }
@@ -122,8 +133,19 @@ export default function Pricing() {
                       ? { background:"var(--bg-3)", border:"1.5px solid var(--blue)", color:"var(--blue)" }
                       : { background:"var(--bg-3)", border:"1px solid var(--border)", color:"var(--text-2)" }
                   }
-                  onMouseEnter={(e) => { if(plan.highlight){ (e.currentTarget as HTMLElement).style.transform="translateY(-1px)"; } }}
-                  onMouseLeave={(e) => { if(plan.highlight){ (e.currentTarget as HTMLElement).style.transform="translateY(0)"; } }}
+                  onMouseEnter={(e) => {
+                    const el = e.currentTarget as HTMLElement;
+                    if (plan.highlight) el.style.transform = "translateY(-1px)";
+                    else { el.style.borderColor = "var(--blue)"; el.style.color = "var(--blue)"; }
+                  }}
+                  onMouseLeave={(e) => {
+                    const el = e.currentTarget as HTMLElement;
+                    if (plan.highlight) el.style.transform = "translateY(0)";
+                    else {
+                      el.style.borderColor = plan.name === "Enterprise" ? "var(--blue)" : "var(--border)";
+                      el.style.color = plan.name === "Enterprise" ? "var(--blue)" : "var(--text-2)";
+                    }
+                  }}
                 >
                   {plan.name === "Enterprise" ? "Talk to Sales" : "Get Started"}
                 </button>
@@ -143,12 +165,20 @@ export default function Pricing() {
           ))}
         </div>
 
-        <div className="text-center mt-10">
-          <p className="text-sm" style={{ color:"var(--text-2)" }}>
-            Need a custom plan?{" "}
-            <a href="#faq" className="font-semibold hover:underline underline-offset-2" style={{ color:"var(--blue)" }}>Talk to our team →</a>
+        <div className="text-center mt-12">
+          <p className="text-sm mb-4" style={{ color:"var(--text-2)" }}>
+            Need a custom plan or have questions about pricing?
           </p>
-          <p className="text-xs mt-2" style={{ color:"var(--text-3)" }}>
+          <button
+            onClick={() => handleCTA("Custom")}
+            className="inline-flex items-center gap-2 px-6 py-2.5 rounded-xl text-sm font-semibold transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400"
+            style={{ background:"var(--blue-bg)", border:"1px solid var(--blue-border)", color:"var(--blue)" }}
+            onMouseEnter={e => { (e.currentTarget as HTMLElement).style.background = "var(--blue-soft)"; }}
+            onMouseLeave={e => { (e.currentTarget as HTMLElement).style.background = "var(--blue-bg)"; }}
+          >
+            Talk to Our Team →
+          </button>
+          <p className="text-xs mt-3" style={{ color:"var(--text-3)" }}>
             All plans include core platform access. Pricing is subject to your community size and requirements.
           </p>
         </div>

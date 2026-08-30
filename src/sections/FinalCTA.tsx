@@ -1,5 +1,8 @@
-export default function FinalCTA() {
+interface FinalCTAProps { onContact?: () => void; }
+
+export default function FinalCTA({ onContact }: FinalCTAProps) {
   const go = (id: string) => document.querySelector(id)?.scrollIntoView({ behavior:"smooth" });
+  const handleDemo = () => { onContact ? onContact() : go("#contact"); };
 
   return (
     <section className="py-28 px-6 relative overflow-hidden section-fade theme-transition" style={{ background:"var(--bg-2)" }} aria-labelledby="cta-heading">
@@ -29,7 +32,7 @@ export default function FinalCTA() {
 
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
           <button
-            onClick={() => go("#how-it-works")}
+            onClick={handleDemo}
             className="flex items-center gap-2.5 px-8 py-4 rounded-xl text-base font-semibold text-white btn-primary focus:outline-none"
           >
             Book a Demo
@@ -37,13 +40,13 @@ export default function FinalCTA() {
           </button>
 
           <button
-            onClick={() => go("#pricing")}
+            onClick={() => go("#contact")}
             className="px-8 py-4 rounded-xl text-base font-medium transition-all duration-200 focus:outline-none theme-transition"
             style={{ background:"var(--bg-3)", border:"1.5px solid var(--border)", color:"var(--text-1)" }}
             onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.borderColor="var(--blue)"; (e.currentTarget as HTMLElement).style.color="var(--blue)"; }}
             onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.borderColor="var(--border)"; (e.currentTarget as HTMLElement).style.color="var(--text-1)"; }}
           >
-            View Pricing
+            Talk to Our Team
           </button>
         </div>
 

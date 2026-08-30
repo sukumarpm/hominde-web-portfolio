@@ -13,7 +13,9 @@ const useCases = [
   { title:"Housing Associations",         desc:"Democratically-run housing organisations needing transparent governance and community features.",                           icon:"🤝", color:"#0D9488" },
 ];
 
-export default function HowItWorks() {
+interface HowItWorksProps { onContact?: () => void; }
+
+export default function HowItWorks({ onContact }: HowItWorksProps) {
   return (
     <>
       {/* ── How it works ── */}
@@ -67,9 +69,9 @@ export default function HowItWorks() {
           <div className="text-center mt-12">
             <button
               className="inline-flex items-center gap-2.5 px-7 py-3.5 rounded-xl text-base font-semibold text-white btn-primary focus:outline-none"
-              onClick={() => document.querySelector("#pricing")?.scrollIntoView({ behavior:"smooth" })}
+              onClick={() => onContact ? onContact() : document.querySelector("#contact")?.scrollIntoView({ behavior:"smooth" })}
             >
-              Get Started Today
+              Book a Demo
               <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
             </button>
           </div>
