@@ -1,39 +1,48 @@
 import { useEffect, useState } from "react";
-import Navbar       from "./components/Navbar";
 import InquiryModal from "./components/InquiryModal";
+import Navbar from "./components/Navbar";
 
 /* ── Hero + video experience ── */
-import Hero              from "./sections/Hero";
+import Hero from "./sections/Hero";
 import QuickFeatureCards from "./sections/QuickFeatureCards";
-import VideoChapterNav   from "./sections/VideoChapterNav";
+import VideoChapterNav from "./sections/VideoChapterNav";
 
 /* ── Platform sections ── */
-import TrustBar       from "./sections/TrustBar";
+import Footer from "./components/Footer";
+import AdminDashboard from "./sections/AdminDashboard";
+import Analytics from "./sections/Analytics";
+import Automation from "./sections/Automation";
+import ContactSection from "./sections/ContactSection";
+import CorePlatform from "./sections/CorePlatform";
+import Ecosystem from "./sections/Ecosystem";
+import FAQ from "./sections/FAQ";
+import FinalCTA from "./sections/FinalCTA";
+import HowItWorks from "./sections/HowItWorks";
+import Pricing from "./sections/Pricing";
 import ProblemSolution from "./sections/ProblemSolution";
-import CorePlatform    from "./sections/CorePlatform";
-import ResidentApp     from "./sections/ResidentApp";
-import AdminDashboard  from "./sections/AdminDashboard";
-import VisitorFlow     from "./sections/VisitorFlow";
+import ResidentApp from "./sections/ResidentApp";
 import SecurityPlatform from "./sections/SecurityPlatform";
-import Ecosystem       from "./sections/Ecosystem";
-import WhiteLabel      from "./sections/WhiteLabel";
-import Automation      from "./sections/Automation";
 import SecurityPrivacy from "./sections/SecurityPrivacy";
-import Analytics       from "./sections/Analytics";
-import HowItWorks      from "./sections/HowItWorks";
-import Testimonials    from "./sections/Testimonials";
-import Pricing         from "./sections/Pricing";
-import ContactSection  from "./sections/ContactSection";
-import FAQ             from "./sections/FAQ";
-import FinalCTA        from "./sections/FinalCTA";
-import Footer          from "./components/Footer";
+import Testimonials from "./sections/Testimonials";
+import TrustBar from "./sections/TrustBar";
+import VisitorFlow from "./sections/VisitorFlow";
+import WhiteLabel from "./sections/WhiteLabel";
+
+/* ── Legal components ── */
+import Policy from "./components/Policy";
+import Terms from "./components/Terms";
 
 export default function App() {
-  const [dark,           setDark]           = useState(false);
-  const [inquiryOpen,    setInquiryOpen]    = useState(false);
-  const [activeChapter,  setActiveChapter]  = useState(1);
+  const [dark, setDark] = useState(false);
+  const [inquiryOpen, setInquiryOpen] = useState(false);
+  const [activeChapter, setActiveChapter] = useState(1);
 
-  const openInquiry  = () => setInquiryOpen(true);
+  // Simple route check
+  const path = window.location.pathname;
+  if (path === "/policy") return <Policy />;
+  if (path === "/terms") return <Terms />;
+
+  const openInquiry = () => setInquiryOpen(true);
   const closeInquiry = () => setInquiryOpen(false);
 
   /* ── Apply theme ─────────────────────────────────────────────── */

@@ -5,7 +5,7 @@
  * Switch provider by changing VITE_EMAIL_PROVIDER in .env
  *
  * Environment variables (server-side only — never expose in client):
- *   CONTACT_EMAIL       = hello@hominode.com
+ *   CONTACT_EMAIL       = hominodecare@gmail.com
  *   RESEND_API_KEY      = re_xxxxxxxxxxxx
  *   SENDGRID_API_KEY    = SG.xxxxxxxxxx
  *   SMTP_HOST           = smtp.example.com
@@ -17,14 +17,14 @@
  */
 
 export interface InquiryPayload {
-  name:          string;
-  email:         string;
-  phone:         string;
-  orgName:       string;
+  name: string;
+  email: string;
+  phone: string;
+  orgName: string;
   communityType: string;
-  unitCount:     string;
-  features:      string;
-  message:       string;
+  unitCount: string;
+  features: string;
+  message: string;
 }
 
 /* ─── Email HTML template ─────────────────────────────────────── */
@@ -70,12 +70,12 @@ export function buildEmailHTML(data: InquiryPayload): string {
             <!-- Section: Client Details -->
             <p style="margin:0 0 16px;font-size:11px;font-weight:700;color:#64748B;letter-spacing:1px;text-transform:uppercase;">Client Details</p>
 
-            ${detailRow("👤 Full Name",    data.name)}
-            ${detailRow("✉️  Work Email",   `<a href="mailto:${data.email}" style="color:#2563EB;text-decoration:none;">${data.email}</a>`)}
-            ${detailRow("📞 Phone",         data.phone)}
-            ${detailRow("🏢 Organisation",  data.orgName)}
-            ${detailRow("🏘️  Community Type",data.communityType)}
-            ${detailRow("🏠 No. of Units",  data.unitCount)}
+            ${detailRow("👤 Full Name", data.name)}
+            ${detailRow("✉️  Work Email", `<a href="mailto:${data.email}" style="color:#2563EB;text-decoration:none;">${data.email}</a>`)}
+            ${detailRow("📞 Phone", data.phone)}
+            ${detailRow("🏢 Organisation", data.orgName)}
+            ${detailRow("🏘️  Community Type", data.communityType)}
+            ${detailRow("🏠 No. of Units", data.unitCount)}
 
             <div style="height:1px;background:#F1F5F9;margin:24px 0;"></div>
 
@@ -168,25 +168,25 @@ export function buildEmailText(data: InquiryPayload): string {
 export async function sendViaResend(
   payload: InquiryPayload,
   env: {
-    RESEND_API_KEY:     string;
-    CONTACT_EMAIL:      string;
+    RESEND_API_KEY: string;
+    CONTACT_EMAIL: string;
     EMAIL_FROM_ADDRESS: string;
-    EMAIL_FROM_NAME:    string;
+    EMAIL_FROM_NAME: string;
   }
 ): Promise<void> {
   const res = await fetch("https://api.resend.com/emails", {
-    method:  "POST",
+    method: "POST",
     headers: {
       "Authorization": `Bearer ${env.RESEND_API_KEY}`,
-      "Content-Type":  "application/json",
+      "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      from:     `${env.EMAIL_FROM_NAME} <${env.EMAIL_FROM_ADDRESS}>`,
-      to:       [env.CONTACT_EMAIL],
+      from: `${env.EMAIL_FROM_NAME} <${env.EMAIL_FROM_ADDRESS}>`,
+      to: [env.CONTACT_EMAIL],
       reply_to: payload.email,
-      subject:  `New Hominode Client Inquiry — ${payload.orgName}`,
-      html:     buildEmailHTML(payload),
-      text:     buildEmailText(payload),
+      subject: `New Hominode Client Inquiry — ${payload.orgName}`,
+      html: buildEmailHTML(payload),
+      text: buildEmailText(payload),
     }),
   });
 
@@ -200,28 +200,28 @@ export async function sendViaResend(
 export async function sendViaSendGrid(
   payload: InquiryPayload,
   env: {
-    SENDGRID_API_KEY:   string;
-    CONTACT_EMAIL:      string;
+    SENDGRID_API_KEY: string;
+    CONTACT_EMAIL: string;
     EMAIL_FROM_ADDRESS: string;
-    EMAIL_FROM_NAME:    string;
+    EMAIL_FROM_NAME: string;
   }
 ): Promise<void> {
   const res = await fetch("https://api.sendgrid.com/v3/mail/send", {
     method: "POST",
     headers: {
       "Authorization": `Bearer ${env.SENDGRID_API_KEY}`,
-      "Content-Type":  "application/json",
+      "Content-Type": "application/json",
     },
     body: JSON.stringify({
       personalizations: [{
-        to:       [{ email: env.CONTACT_EMAIL }],
-        subject:  `New Hominode Client Inquiry — ${payload.orgName}`,
+        to: [{ email: env.CONTACT_EMAIL }],
+        subject: `New Hominode Client Inquiry — ${payload.orgName}`,
       }],
-      from:     { email: env.EMAIL_FROM_ADDRESS, name: env.EMAIL_FROM_NAME },
+      from: { email: env.EMAIL_FROM_ADDRESS, name: env.EMAIL_FROM_NAME },
       reply_to: { email: payload.email, name: payload.name },
-      content:  [
+      content: [
         { type: "text/plain", value: buildEmailText(payload) },
-        { type: "text/html",  value: buildEmailHTML(payload) },
+        { type: "text/html", value: buildEmailHTML(payload) },
       ],
     }),
   });

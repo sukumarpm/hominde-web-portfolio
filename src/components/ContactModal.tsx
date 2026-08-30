@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 interface ContactModalProps {
   onClose: () => void;
@@ -67,7 +67,7 @@ export default function ContactModal({ onClose }: ContactModalProps) {
     );
 
     // Open the user's default mail client
-    window.location.href = `mailto:hello@hominode.com?subject=${subject}&body=${body}`;
+    window.location.href = `mailto:hominodecare@gmail.com?subject=${subject}&body=${body}`;
 
     // Show sent state after short delay
     setTimeout(() => setStatus("sent"), 600);
@@ -116,24 +116,24 @@ export default function ContactModal({ onClose }: ContactModalProps) {
                 style={{ background: "linear-gradient(135deg,#2563EB,#6366F1)" }}
               >
                 <svg width="14" height="14" viewBox="0 0 18 18" fill="none">
-                  <circle cx="9" cy="9" r="3" fill="white"/>
-                  <circle cx="9" cy="2" r="1.5" fill="white" opacity="0.7"/>
-                  <circle cx="9" cy="16" r="1.5" fill="white" opacity="0.7"/>
-                  <circle cx="2" cy="9" r="1.5" fill="white" opacity="0.7"/>
-                  <circle cx="16" cy="9" r="1.5" fill="white" opacity="0.7"/>
+                  <circle cx="9" cy="9" r="3" fill="white" />
+                  <circle cx="9" cy="2" r="1.5" fill="white" opacity="0.7" />
+                  <circle cx="9" cy="16" r="1.5" fill="white" opacity="0.7" />
+                  <circle cx="2" cy="9" r="1.5" fill="white" opacity="0.7" />
+                  <circle cx="16" cy="9" r="1.5" fill="white" opacity="0.7" />
                 </svg>
               </div>
               <span
                 className="text-sm font-bold tracking-tight"
-                style={{ fontFamily:"Instrument Sans,sans-serif", color:"var(--text-1)" }}
+                style={{ fontFamily: "Instrument Sans,sans-serif", color: "var(--text-1)" }}
               >
                 HOMINODE
               </span>
             </div>
-            <h2 id="contact-modal-title" className="text-xl font-bold" style={{ color:"var(--text-1)", fontFamily:"Instrument Sans,sans-serif" }}>
+            <h2 id="contact-modal-title" className="text-xl font-bold" style={{ color: "var(--text-1)", fontFamily: "Instrument Sans,sans-serif" }}>
               Get in touch
             </h2>
-            <p className="text-sm mt-0.5" style={{ color:"var(--text-2)" }}>
+            <p className="text-sm mt-0.5" style={{ color: "var(--text-2)" }}>
               Tell us about your community — we'll reach out within 24 hours.
             </p>
           </div>
@@ -142,13 +142,13 @@ export default function ContactModal({ onClose }: ContactModalProps) {
           <button
             onClick={onClose}
             className="w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 ml-4 transition-colors theme-transition focus:outline-none"
-            style={{ background:"var(--bg-3)", color:"var(--text-2)" }}
+            style={{ background: "var(--bg-3)", color: "var(--text-2)" }}
             onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.background = "var(--bg-2)"; (e.currentTarget as HTMLElement).style.color = "var(--text-1)"; }}
             onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.background = "var(--bg-3)"; (e.currentTarget as HTMLElement).style.color = "var(--text-2)"; }}
             aria-label="Close"
           >
             <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-              <path d="M2 2l10 10M12 2L2 12" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+              <path d="M2 2l10 10M12 2L2 12" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
             </svg>
           </button>
         </div>
@@ -159,18 +159,18 @@ export default function ContactModal({ onClose }: ContactModalProps) {
           <div className="px-6 py-12 text-center">
             <div
               className="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-5"
-              style={{ background:"rgba(5,150,105,0.12)" }}
+              style={{ background: "rgba(5,150,105,0.12)" }}
             >
               <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
-                <path d="M5 14l6 6 12-12" stroke="#059669" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
+                <path d="M5 14l6 6 12-12" stroke="#059669" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
             </div>
-            <h3 className="text-xl font-bold mb-2" style={{ color:"var(--text-1)", fontFamily:"Instrument Sans,sans-serif" }}>
+            <h3 className="text-xl font-bold mb-2" style={{ color: "var(--text-1)", fontFamily: "Instrument Sans,sans-serif" }}>
               Your message is ready!
             </h3>
-            <p className="text-sm mb-6" style={{ color:"var(--text-2)" }}>
+            <p className="text-sm mb-6" style={{ color: "var(--text-2)" }}>
               Your email client should have opened with your details pre-filled.
-              Send it to <strong style={{ color:"var(--blue)" }}>hello@hominode.com</strong> and
+              Send it to <strong style={{ color: "var(--blue)" }}>hominodecare@gmail.com</strong> and
               we'll get back to you within 24 hours.
             </p>
             <button
@@ -186,8 +186,8 @@ export default function ContactModal({ onClose }: ContactModalProps) {
             {/* Row: Name + Email */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div className="flex flex-col gap-1.5">
-                <label className="text-xs font-semibold" style={{ color:"var(--text-2)" }}>
-                  Full Name <span style={{ color:"#EF4444" }}>*</span>
+                <label className="text-xs font-semibold" style={{ color: "var(--text-2)" }}>
+                  Full Name <span style={{ color: "#EF4444" }}>*</span>
                 </label>
                 <input
                   ref={firstInputRef}
@@ -203,8 +203,8 @@ export default function ContactModal({ onClose }: ContactModalProps) {
                 />
               </div>
               <div className="flex flex-col gap-1.5">
-                <label className="text-xs font-semibold" style={{ color:"var(--text-2)" }}>
-                  Work Email <span style={{ color:"#EF4444" }}>*</span>
+                <label className="text-xs font-semibold" style={{ color: "var(--text-2)" }}>
+                  Work Email <span style={{ color: "#EF4444" }}>*</span>
                 </label>
                 <input
                   type="email"
@@ -223,7 +223,7 @@ export default function ContactModal({ onClose }: ContactModalProps) {
             {/* Row: Phone + Organisation */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div className="flex flex-col gap-1.5">
-                <label className="text-xs font-semibold" style={{ color:"var(--text-2)" }}>Phone</label>
+                <label className="text-xs font-semibold" style={{ color: "var(--text-2)" }}>Phone</label>
                 <input
                   type="tel"
                   placeholder="+91 98765 43210"
@@ -236,7 +236,7 @@ export default function ContactModal({ onClose }: ContactModalProps) {
                 />
               </div>
               <div className="flex flex-col gap-1.5">
-                <label className="text-xs font-semibold" style={{ color:"var(--text-2)" }}>Organisation</label>
+                <label className="text-xs font-semibold" style={{ color: "var(--text-2)" }}>Organisation</label>
                 <input
                   type="text"
                   placeholder="Sunrise Residency"
@@ -253,8 +253,8 @@ export default function ContactModal({ onClose }: ContactModalProps) {
             {/* Row: Community Type + Units */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div className="flex flex-col gap-1.5">
-                <label className="text-xs font-semibold" style={{ color:"var(--text-2)" }}>
-                  Community Type <span style={{ color:"#EF4444" }}>*</span>
+                <label className="text-xs font-semibold" style={{ color: "var(--text-2)" }}>
+                  Community Type <span style={{ color: "#EF4444" }}>*</span>
                 </label>
                 <select
                   required
@@ -263,14 +263,14 @@ export default function ContactModal({ onClose }: ContactModalProps) {
                   onFocus={inputFocus}
                   onBlur={inputBlur}
                   className={inputCls}
-                  style={{ ...inputStyle, appearance: "none", backgroundImage:"none" }}
+                  style={{ ...inputStyle, appearance: "none", backgroundImage: "none" }}
                 >
                   <option value="">Select type…</option>
                   {INTEREST_OPTIONS.map((o) => <option key={o} value={o}>{o}</option>)}
                 </select>
               </div>
               <div className="flex flex-col gap-1.5">
-                <label className="text-xs font-semibold" style={{ color:"var(--text-2)" }}>Approx. Units / Flats</label>
+                <label className="text-xs font-semibold" style={{ color: "var(--text-2)" }}>Approx. Units / Flats</label>
                 <input
                   type="number"
                   placeholder="e.g. 120"
@@ -287,7 +287,7 @@ export default function ContactModal({ onClose }: ContactModalProps) {
 
             {/* Message */}
             <div className="flex flex-col gap-1.5">
-              <label className="text-xs font-semibold" style={{ color:"var(--text-2)" }}>Message</label>
+              <label className="text-xs font-semibold" style={{ color: "var(--text-2)" }}>Message</label>
               <textarea
                 rows={3}
                 placeholder="Tell us what you need, any specific features, or questions…"
@@ -296,14 +296,24 @@ export default function ContactModal({ onClose }: ContactModalProps) {
                 onFocus={inputFocus}
                 onBlur={inputBlur}
                 className={inputCls}
-                style={{ ...inputStyle, resize:"vertical", minHeight:"80px" }}
+                style={{ ...inputStyle, resize: "vertical", minHeight: "80px" }}
               />
             </div>
 
             {/* Privacy note */}
-            <p className="text-xs" style={{ color:"var(--text-3)" }}>
+            <p className="text-xs" style={{ color: "var(--text-3)" }}>
               By submitting, you agree to our{" "}
-              <a href="#" style={{ color:"var(--blue)" }} className="hover:underline underline-offset-2">
+              <a
+                href="/policy"
+                onClick={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  onClose();
+                  window.location.href = "/policy";
+                }}
+                style={{ color: "var(--blue)" }}
+                className="hover:underline underline-offset-2 cursor-pointer"
+              >
                 Privacy Policy
               </a>
               . We don't share your information with third parties.
@@ -318,8 +328,8 @@ export default function ContactModal({ onClose }: ContactModalProps) {
               {status === "sending" ? (
                 <span className="flex items-center justify-center gap-2">
                   <svg className="animate-spin w-4 h-4" viewBox="0 0 24 24" fill="none">
-                    <circle cx="12" cy="12" r="10" stroke="rgba(255,255,255,0.3)" strokeWidth="3"/>
-                    <path d="M12 2a10 10 0 0 1 10 10" stroke="white" strokeWidth="3" strokeLinecap="round"/>
+                    <circle cx="12" cy="12" r="10" stroke="rgba(255,255,255,0.3)" strokeWidth="3" />
+                    <path d="M12 2a10 10 0 0 1 10 10" stroke="white" strokeWidth="3" strokeLinecap="round" />
                   </svg>
                   Opening email client…
                 </span>
@@ -327,7 +337,7 @@ export default function ContactModal({ onClose }: ContactModalProps) {
                 <span className="flex items-center justify-center gap-2">
                   Send Message
                   <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
-                    <path d="M1 7h12M8 3l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                    <path d="M1 7h12M8 3l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                   </svg>
                 </span>
               )}
@@ -335,14 +345,14 @@ export default function ContactModal({ onClose }: ContactModalProps) {
 
             {/* Alt contact */}
             <div className="flex items-center gap-3 pt-1">
-              <div className="flex-1 h-px theme-transition" style={{ background:"var(--border)" }} />
-              <span className="text-xs" style={{ color:"var(--text-3)" }}>or email us directly</span>
-              <div className="flex-1 h-px theme-transition" style={{ background:"var(--border)" }} />
+              <div className="flex-1 h-px theme-transition" style={{ background: "var(--border)" }} />
+              <span className="text-xs" style={{ color: "var(--text-3)" }}>or email us directly</span>
+              <div className="flex-1 h-px theme-transition" style={{ background: "var(--border)" }} />
             </div>
             <a
-              href="mailto:hello@hominode.com"
+              href="mailto:hominodecare@gmail.com"
               className="flex items-center justify-center gap-2 py-2.5 rounded-xl text-sm font-medium transition-all theme-transition"
-              style={{ background:"var(--bg-2)", border:"1px solid var(--border)", color:"var(--text-2)" }}
+              style={{ background: "var(--bg-2)", border: "1px solid var(--border)", color: "var(--text-2)" }}
               onMouseEnter={(e) => {
                 (e.currentTarget as HTMLElement).style.borderColor = "var(--blue)";
                 (e.currentTarget as HTMLElement).style.color = "var(--blue)";
@@ -353,10 +363,10 @@ export default function ContactModal({ onClose }: ContactModalProps) {
               }}
             >
               <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-                <rect x="1" y="3" width="14" height="10" rx="2" stroke="currentColor" strokeWidth="1.4"/>
-                <path d="M1 5l7 5 7-5" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round"/>
+                <rect x="1" y="3" width="14" height="10" rx="2" stroke="currentColor" strokeWidth="1.4" />
+                <path d="M1 5l7 5 7-5" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" />
               </svg>
-              hello@hominode.com
+              hominodecare@gmail.com
             </a>
           </form>
         )}

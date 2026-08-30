@@ -21,34 +21,34 @@ const CONTACT_INFO = [
   {
     icon: (
       <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
-        <rect x="1" y="3.5" width="16" height="11" rx="2.5" stroke="currentColor" strokeWidth="1.4"/>
-        <path d="M1 6l8 5.5L17 6" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round"/>
+        <rect x="1" y="3.5" width="16" height="11" rx="2.5" stroke="currentColor" strokeWidth="1.4" />
+        <path d="M1 6l8 5.5L17 6" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" />
       </svg>
     ),
     label: "Email us",
-    value: "hello@hominode.com",
-    href:  "mailto:hello@hominode.com",
+    value: "hominodecare@gmail.com",
+    href: "mailto:hominodecare@gmail.com",
   },
   {
     icon: (
       <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
-        <path d="M3 3.5C3 2.67 3.67 2 4.5 2h2l1.5 4L6.5 7.5a10 10 0 0 0 4 4l1.5-1.5 4 1.5v2c0 .83-.67 1.5-1.5 1.5C7.16 16 2 10.84 2 4.5A1.5 1.5 0 0 1 3 3.5z" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"/>
+        <path d="M3 3.5C3 2.67 3.67 2 4.5 2h2l1.5 4L6.5 7.5a10 10 0 0 0 4 4l1.5-1.5 4 1.5v2c0 .83-.67 1.5-1.5 1.5C7.16 16 2 10.84 2 4.5A1.5 1.5 0 0 1 3 3.5z" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
       </svg>
     ),
     label: "Call us",
     value: "+91 XXXXX XXXXX",
-    href:  "tel:+91XXXXXXXXXX",
+    href: "tel:+91XXXXXXXXXX",
   },
   {
     icon: (
       <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
-        <circle cx="9" cy="7.5" r="2.5" stroke="currentColor" strokeWidth="1.4"/>
-        <path d="M9 1.5C5.96 1.5 3.5 3.96 3.5 7c0 4.5 5.5 9.5 5.5 9.5s5.5-5 5.5-9.5c0-3.04-2.46-5.5-5.5-5.5z" stroke="currentColor" strokeWidth="1.4"/>
+        <circle cx="9" cy="7.5" r="2.5" stroke="currentColor" strokeWidth="1.4" />
+        <path d="M9 1.5C5.96 1.5 3.5 3.96 3.5 7c0 4.5 5.5 9.5 5.5 9.5s5.5-5 5.5-9.5c0-3.04-2.46-5.5-5.5-5.5z" stroke="currentColor" strokeWidth="1.4" />
       </svg>
     ),
     label: "Based in",
     value: "India",
-    href:  undefined,
+    href: undefined,
   },
 ];
 
@@ -112,7 +112,7 @@ export default function ContactSection() {
                     aria-hidden="true"
                   >
                     <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
-                      <path d="M2 6l3 3 5-5" stroke="var(--blue)" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
+                      <path d="M2 6l3 3 5-5" stroke="var(--blue)" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
                     </svg>
                   </span>
                   <span className="text-sm font-medium" style={{ color: "var(--text-1)" }}>
@@ -180,9 +180,9 @@ export default function ContactSection() {
           <div
             className="rounded-2xl p-6 sm:p-8 theme-transition"
             style={{
-              background:  "var(--card)",
-              border:      "1px solid var(--border)",
-              boxShadow:   "var(--card-shadow)",
+              background: "var(--card)",
+              border: "1px solid var(--border)",
+              boxShadow: "var(--card-shadow)",
             }}
           >
             <InquiryForm />

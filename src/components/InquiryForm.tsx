@@ -12,7 +12,7 @@
  *  - WCAG accessible: labels, aria-describedby, focus management
  */
 
-import { useState, useRef, type FormEvent } from "react";
+import { useRef, useState, type FormEvent } from "react";
 
 /* ─── constants ─────────────────────────────────────────────────── */
 
@@ -36,38 +36,38 @@ const UNIT_RANGES = [
 ] as const;
 
 const FEATURE_OPTIONS = [
-  { id: "resident",   label: "Resident Management"      },
-  { id: "visitor",    label: "Visitor Management"        },
-  { id: "maintenance",label: "Maintenance & Billing"     },
-  { id: "parking",    label: "Parking Management"        },
-  { id: "amenity",    label: "Amenity Management"        },
-  { id: "security",   label: "Security Management"       },
-  { id: "community",  label: "Community Communication"   },
-  { id: "staff",      label: "Staff Management"          },
-  { id: "whitelabel", label: "White-Label Platform"      },
-  { id: "complete",   label: "Complete Hominode Platform" },
+  { id: "resident", label: "Resident Management" },
+  { id: "visitor", label: "Visitor Management" },
+  { id: "maintenance", label: "Maintenance & Billing" },
+  { id: "parking", label: "Parking Management" },
+  { id: "amenity", label: "Amenity Management" },
+  { id: "security", label: "Security Management" },
+  { id: "community", label: "Community Communication" },
+  { id: "staff", label: "Staff Management" },
+  { id: "whitelabel", label: "White-Label Platform" },
+  { id: "complete", label: "Complete Hominode Platform" },
 ] as const;
 
 /* ─── types ─────────────────────────────────────────────────────── */
 
 interface FormData {
-  name:          string;
-  email:         string;
-  phone:         string;
-  orgName:       string;
+  name: string;
+  email: string;
+  phone: string;
+  orgName: string;
   communityType: string;
-  unitCount:     string;
-  features:      string[];
-  message:       string;
+  unitCount: string;
+  features: string[];
+  message: string;
   /** honeypot — must stay empty */
-  _hp:           string;
+  _hp: string;
 }
 
 interface FieldErrors {
-  name?:          string;
-  email?:         string;
-  phone?:         string;
-  orgName?:       string;
+  name?: string;
+  email?: string;
+  phone?: string;
+  orgName?: string;
   communityType?: string;
 }
 
@@ -80,15 +80,15 @@ const PHONE_RE = /^[+\d][\d\s\-().]{6,19}$/;
 
 function validate(data: FormData): FieldErrors {
   const e: FieldErrors = {};
-  if (!data.name.trim())          e.name          = "Please enter your full name.";
-  if (!data.email.trim())         e.email         = "Please enter your work email.";
+  if (!data.name.trim()) e.name = "Please enter your full name.";
+  if (!data.email.trim()) e.email = "Please enter your work email.";
   else if (!EMAIL_RE.test(data.email.trim()))
-                                  e.email         = "Please enter a valid work email.";
-  if (!data.phone.trim())         e.phone         = "Please enter your phone number.";
+    e.email = "Please enter a valid work email.";
+  if (!data.phone.trim()) e.phone = "Please enter your phone number.";
   else if (!PHONE_RE.test(data.phone.trim()))
-                                  e.phone         = "Please enter a valid phone number.";
-  if (!data.orgName.trim())       e.orgName       = "Please enter your community or organisation name.";
-  if (!data.communityType)        e.communityType = "Please select your community type.";
+    e.phone = "Please enter a valid phone number.";
+  if (!data.orgName.trim()) e.orgName = "Please enter your community or organisation name.";
+  if (!data.communityType) e.communityType = "Please select your community type.";
   return e;
 }
 
@@ -128,9 +128,9 @@ const BASE_CLS =
   "w-full px-4 py-2.5 rounded-xl text-sm outline-none transition-all duration-150 theme-transition";
 
 const baseStyle = {
-  background:  "var(--bg-2)",
-  border:      "1.5px solid var(--border)",
-  color:       "var(--text-1)",
+  background: "var(--bg-2)",
+  border: "1.5px solid var(--border)",
+  color: "var(--text-1)",
 };
 
 const errorStyle = {
@@ -143,11 +143,11 @@ function useFocusHandlers() {
   return {
     onFocus(e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) {
       (e.target as HTMLElement).style.borderColor = "var(--blue)";
-      (e.target as HTMLElement).style.boxShadow   = "0 0 0 3px var(--blue-soft)";
+      (e.target as HTMLElement).style.boxShadow = "0 0 0 3px var(--blue-soft)";
     },
     onBlur(e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) {
       (e.target as HTMLElement).style.borderColor = "var(--border)";
-      (e.target as HTMLElement).style.boxShadow   = "none";
+      (e.target as HTMLElement).style.boxShadow = "none";
     },
   };
 }
@@ -162,7 +162,7 @@ export interface InquiryFormProps {
 }
 
 export default function InquiryForm({ onSuccess, compact = false }: InquiryFormProps) {
-  const [form, setForm]     = useState<FormData>({
+  const [form, setForm] = useState<FormData>({
     name: "", email: "", phone: "", orgName: "",
     communityType: "", unitCount: "", features: [],
     message: "", _hp: "",
@@ -211,26 +211,26 @@ export default function InquiryForm({ onSuccess, compact = false }: InquiryFormP
     setErrorMsg("");
 
     const payload = {
-      name:          form.name.trim(),
-      email:         form.email.trim().toLowerCase(),
-      phone:         form.phone.trim(),
-      orgName:       form.orgName.trim(),
+      name: form.name.trim(),
+      email: form.email.trim().toLowerCase(),
+      phone: form.phone.trim(),
+      orgName: form.orgName.trim(),
       communityType: form.communityType,
-      unitCount:     form.unitCount || "Not specified",
-      features:      form.features.length
+      unitCount: form.unitCount || "Not specified",
+      features: form.features.length
         ? form.features
-            .map(id => FEATURE_OPTIONS.find(f => f.id === id)?.label ?? id)
-            .join(", ")
+          .map(id => FEATURE_OPTIONS.find(f => f.id === id)?.label ?? id)
+          .join(", ")
         : "Not specified",
-      message:       form.message.trim() || "—",
+      message: form.message.trim() || "—",
     };
 
     try {
       /* ── Primary: server-side API ── */
       const res = await fetch("/api/inquiry", {
-        method:  "POST",
+        method: "POST",
         headers: { "Content-Type": "application/json" },
-        body:    JSON.stringify(payload),
+        body: JSON.stringify(payload),
       });
 
       if (!res.ok) {
@@ -263,14 +263,14 @@ export default function InquiryForm({ onSuccess, compact = false }: InquiryFormP
         `Submitted from: Hominode Website\n` +
         `Submission Date: ${new Date().toLocaleString("en-IN")}`
       );
-      window.open(`mailto:hello@hominode.com?subject=${subject}&body=${body}`);
+      window.open(`mailto:hominodecare@gmail.com?subject=${subject}&body=${body}`);
       setStatus("sent");
     }
   };
 
   /* reset */
   const handleReset = () => {
-    setForm({ name:"",email:"",phone:"",orgName:"",communityType:"",unitCount:"",features:[],message:"",_hp:"" });
+    setForm({ name: "", email: "", phone: "", orgName: "", communityType: "", unitCount: "", features: [], message: "", _hp: "" });
     setErrors({}); setTouch({}); setStatus("idle"); setErrorMsg("");
     onSuccess?.();
   };
@@ -294,7 +294,7 @@ export default function InquiryForm({ onSuccess, compact = false }: InquiryFormP
             width="36" height="36" viewBox="0 0 36 36" fill="none"
             style={{ animation: "draw-check 0.5s ease 0.2s forwards", strokeDasharray: 40, strokeDashoffset: 40 }}
           >
-            <path d="M7 18l7 7 15-15" stroke="#059669" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"/>
+            <path d="M7 18l7 7 15-15" stroke="#059669" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
         </div>
         <div>
@@ -317,7 +317,7 @@ export default function InquiryForm({ onSuccess, compact = false }: InquiryFormP
             Back to Hominode
           </button>
           <a
-            href="mailto:hello@hominode.com"
+            href="mailto:hominodecare@gmail.com"
             className="px-7 py-3 rounded-xl text-sm font-medium transition-all theme-transition"
             style={{ background: "var(--bg-3)", border: "1px solid var(--border)", color: "var(--text-2)" }}
           >
@@ -465,7 +465,7 @@ export default function InquiryForm({ onSuccess, compact = false }: InquiryFormP
               aria-hidden="true"
               style={{ color: "var(--text-3)" }}
             >
-              <path d="M3 5l4 4 4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+              <path d="M3 5l4 4 4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
           </div>
         </FieldWrapper>
@@ -490,7 +490,7 @@ export default function InquiryForm({ onSuccess, compact = false }: InquiryFormP
               aria-hidden="true"
               style={{ color: "var(--text-3)" }}
             >
-              <path d="M3 5l4 4 4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+              <path d="M3 5l4 4 4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
           </div>
         </FieldWrapper>
@@ -527,7 +527,7 @@ export default function InquiryForm({ onSuccess, compact = false }: InquiryFormP
                 <span className="text-sm font-medium">{label}</span>
                 {checked && (
                   <svg className="ml-auto flex-shrink-0" width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
-                    <path d="M2 7l4 4 6-6" stroke="var(--blue)" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
+                    <path d="M2 7l4 4 6-6" stroke="var(--blue)" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
                   </svg>
                 )}
               </label>
@@ -560,8 +560,8 @@ export default function InquiryForm({ onSuccess, compact = false }: InquiryFormP
           style={{ background: "rgba(239,68,68,0.08)", border: "1px solid rgba(239,68,68,0.25)", color: "#DC2626" }}
         >
           <svg width="18" height="18" viewBox="0 0 18 18" fill="none" className="flex-shrink-0 mt-0.5" aria-hidden="true">
-            <circle cx="9" cy="9" r="8" stroke="currentColor" strokeWidth="1.5"/>
-            <path d="M9 5v5M9 12.5h.01" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+            <circle cx="9" cy="9" r="8" stroke="currentColor" strokeWidth="1.5" />
+            <path d="M9 5v5M9 12.5h.01" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
           </svg>
           {errorMsg}
         </div>
@@ -570,7 +570,13 @@ export default function InquiryForm({ onSuccess, compact = false }: InquiryFormP
       {/* ── Privacy note ── */}
       <p className="text-xs leading-relaxed" style={{ color: "var(--text-3)" }}>
         By submitting, you agree to our{" "}
-        <a href="#" style={{ color: "var(--blue)" }} className="hover:underline underline-offset-2">Privacy Policy</a>.
+        <a
+          href="/policy"
+          style={{ color: "var(--blue)" }}
+          className="hover:underline underline-offset-2"
+        >
+          Privacy Policy
+        </a>.
         {" "}We never share your information with third parties.
       </p>
 
@@ -584,8 +590,8 @@ export default function InquiryForm({ onSuccess, compact = false }: InquiryFormP
         {status === "sending" ? (
           <span className="flex items-center justify-center gap-2">
             <svg className="animate-spin w-4 h-4" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-              <circle cx="12" cy="12" r="10" stroke="rgba(255,255,255,0.3)" strokeWidth="3"/>
-              <path d="M12 2a10 10 0 0 1 10 10" stroke="white" strokeWidth="3" strokeLinecap="round"/>
+              <circle cx="12" cy="12" r="10" stroke="rgba(255,255,255,0.3)" strokeWidth="3" />
+              <path d="M12 2a10 10 0 0 1 10 10" stroke="white" strokeWidth="3" strokeLinecap="round" />
             </svg>
             Sending…
           </span>
@@ -593,7 +599,7 @@ export default function InquiryForm({ onSuccess, compact = false }: InquiryFormP
           <span className="flex items-center justify-center gap-2">
             Send Inquiry
             <svg width="15" height="15" viewBox="0 0 15 15" fill="none" aria-hidden="true">
-              <path d="M1.5 7.5h12M8.5 3l4.5 4.5L8.5 12" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/>
+              <path d="M1.5 7.5h12M8.5 3l4.5 4.5L8.5 12" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
           </span>
         )}
@@ -606,7 +612,7 @@ export default function InquiryForm({ onSuccess, compact = false }: InquiryFormP
         <div className="flex-1 h-px" style={{ background: "var(--border)" }} />
       </div>
       <a
-        href="mailto:hello@hominode.com"
+        href="mailto:hominodecare@gmail.com"
         className="flex items-center justify-center gap-2 py-2.5 rounded-xl text-sm font-medium transition-all theme-transition focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400"
         style={{ background: "var(--bg-2)", border: "1px solid var(--border)", color: "var(--text-2)" }}
         onMouseEnter={e => {
@@ -619,10 +625,10 @@ export default function InquiryForm({ onSuccess, compact = false }: InquiryFormP
         }}
       >
         <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-          <rect x="1" y="3" width="14" height="10" rx="2" stroke="currentColor" strokeWidth="1.4"/>
-          <path d="M1 5l7 5 7-5" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round"/>
+          <rect x="1" y="3" width="14" height="10" rx="2" stroke="currentColor" strokeWidth="1.4" />
+          <path d="M1 5l7 5 7-5" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" />
         </svg>
-        hello@hominode.com
+        hominodecare@gmail.com
       </a>
     </form>
   );

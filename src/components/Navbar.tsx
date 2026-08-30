@@ -12,22 +12,11 @@ const navLinks = [
 function Logo() {
   return (
     <a href="#" className="flex items-center gap-2.5 group focus:outline-none" aria-label="Hominode home">
-      <div
-        className="w-8 h-8 rounded-xl flex items-center justify-center flex-shrink-0 transition-transform duration-200 group-hover:scale-105"
-        style={{ background: "linear-gradient(135deg,#2563EB,#6366F1)" }}
-      >
-        <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
-          <circle cx="9" cy="9" r="3" fill="white"/>
-          <circle cx="9" cy="2"  r="1.5" fill="white" opacity="0.75"/>
-          <circle cx="9" cy="16" r="1.5" fill="white" opacity="0.75"/>
-          <circle cx="2" cy="9"  r="1.5" fill="white" opacity="0.75"/>
-          <circle cx="16" cy="9" r="1.5" fill="white" opacity="0.75"/>
-          <line x1="9" y1="3.5"  x2="9"  y2="6"    stroke="white" strokeWidth="1.2" opacity="0.5"/>
-          <line x1="9" y1="12"   x2="9"  y2="14.5" stroke="white" strokeWidth="1.2" opacity="0.5"/>
-          <line x1="3.5" y1="9"  x2="6"  y2="9"    stroke="white" strokeWidth="1.2" opacity="0.5"/>
-          <line x1="12" y1="9"   x2="14.5" y2="9"  stroke="white" strokeWidth="1.2" opacity="0.5"/>
-        </svg>
-      </div>
+      <img 
+        src="/logo.png" 
+        alt="Hominode Logo" 
+        className="w-8 h-8 object-contain transition-transform duration-200 group-hover:scale-105 flex-shrink-0"
+      />
       <span className="text-[17px] font-bold tracking-tight theme-transition" style={{ fontFamily:"Instrument Sans,sans-serif", color:"var(--text-1)" }}>
         HOMINODE
       </span>
