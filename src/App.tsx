@@ -27,6 +27,7 @@ import Testimonials from "./sections/Testimonials";
 import TrustBar from "./sections/TrustBar";
 import VisitorFlow from "./sections/VisitorFlow";
 import WhiteLabel from "./sections/WhiteLabel";
+import ResidentAccess from "./components/ResidentAccess";
 
 /* ── Legal components ── */
 import Policy from "./components/Policy";
@@ -41,6 +42,7 @@ export default function App() {
   const path = window.location.pathname;
   if (path === "/policy") return <Policy />;
   if (path === "/terms") return <Terms />;
+  if (path === "/resident") return <ResidentAccess />;
 
   const openInquiry = () => setInquiryOpen(true);
   const closeInquiry = () => setInquiryOpen(false);
