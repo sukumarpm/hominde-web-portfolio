@@ -5,14 +5,14 @@ const navLinks = [
   { label: "Product", href: "#product" },
   { label: "Solutions", href: "#how-it-works" },
   { label: "Features", href: "#features" },
-  { label: "Security", href: "#security" },
+  { label: "Security", href: "#security-platform" },
   { label: "Pricing", href: "#pricing" },
   { label: "Resources", href: "#faq" },
 ];
 
 function Logo() {
   return (
-    <a href="#" className="flex items-center gap-2.5 group focus:outline-none" aria-label="Hominode home">
+    <a href="#hero" className="flex items-center gap-2.5 group focus:outline-none" aria-label="Hominode home">
       <img
         src="/hominode-mark.svg"
         alt="Hominode Logo"
