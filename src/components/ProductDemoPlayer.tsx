@@ -63,32 +63,166 @@ function WorkflowStep({ icon, text, active, done }: { icon: string; text: string
 /* ─── individual scenes ──────────────────────────────────────────── */
 
 function Scene01({ tick }: { tick: number }) {
+  const apps = [
+    {
+      name: "Resident",
+      icon: "🏠",
+      accent: "#3AA6C8",
+      header: "Resident App",
+      rows: ["Visitors", "Bills", "Amenities"],
+      footer: "Home   Updates   Profile",
+    },
+    {
+      name: "Admin",
+      icon: "⚙️",
+      accent: "#0E4778",
+      header: "Admin App",
+      rows: ["Dashboard", "Residents", "Payments"],
+      footer: "Home   Manage   Reports",
+    },
+    {
+      name: "Security",
+      icon: "🛡️",
+      accent: "#14B8A6",
+      header: "Security App",
+      rows: ["Verify Visitor", "Parcels", "Gate Activity"],
+      footer: "Gate   Scan   Alerts",
+    },
+  ];
+
   return (
-    <SceneWrap bg="linear-gradient(135deg, #030A1B 0%, #061C4C 52%, #0E4778 100%)">
+    <SceneWrap bg="linear-gradient(135deg, #030A1B 0%, #061C4C 55%, #0E4778 100%)">
       <div
         className="absolute inset-0 pointer-events-none"
         aria-hidden="true"
-        style={{ background: "radial-gradient(ellipse 60% 45% at 50% 50%, rgba(58,166,200,0.22) 0%, transparent 72%)" }}
+        style={{
+          background:
+            "radial-gradient(circle at 20% 35%, rgba(58,166,200,0.16), transparent 28%), radial-gradient(circle at 82% 30%, rgba(20,184,166,0.12), transparent 26%)",
+        }}
       />
-      <div className="flex flex-col items-center gap-5 text-center" style={{ opacity: tick > 0 ? 1 : 0, transition: "opacity 0.8s ease" }}>
-        <img
-          src="/logo.png"
-          alt=""
-          className="w-20 h-20 object-contain"
-          style={{ filter: "drop-shadow(0 0 22px rgba(58,166,200,0.35))" }}
-        />
-        <h1 className="text-3xl sm:text-5xl font-bold text-white tracking-tight" style={{ fontFamily: "Instrument Sans, sans-serif" }}>
-          HOMINODE
+
+      <div className="w-full max-w-2xl flex flex-col items-center text-center">
+        <div
+          className="flex items-center gap-2 mb-3"
+          style={{ opacity: tick > 0 ? 1 : 0, transition: "opacity 0.35s ease" }}
+        >
+          <img src="/logo.png" alt="" className="w-8 h-8 object-contain" />
+          <span className="text-sm font-bold tracking-wide text-white">HOMINODE</span>
+        </div>
+
+        <h1
+          className="text-xl sm:text-2xl font-bold text-white mb-1"
+          style={{ opacity: tick > 0.2 ? 1 : 0, transition: "opacity 0.35s ease" }}
+        >
+          Three purpose-built mobile apps.
         </h1>
-        <p className="text-lg sm:text-2xl font-medium"
-          style={{ color: "rgba(255,255,255,0.72)", opacity: tick > 1 ? 1 : 0, transition: "opacity 0.8s ease 0.4s" }}>
-          Smart place. Better lives.
+        <p
+          className="text-xs sm:text-sm text-white/55 mb-4"
+          style={{ opacity: tick > 0.4 ? 1 : 0, transition: "opacity 0.35s ease" }}
+        >
+          Resident · Admin · Security — one connected Hominode platform
         </p>
-        <p className="text-sm text-center max-w-sm"
-          style={{ color: "rgba(255,255,255,0.45)", opacity: tick > 1.5 ? 1 : 0, transition: "opacity 0.8s ease 0.8s" }}>
-          A real Hominode walkthrough using the fictional Green Wave Residences demo community.
-        </p>
+
+        <div className="flex items-end justify-center gap-3 sm:gap-5">
+          {apps.map((app, i) => {
+            const visible = tick > 0.45 + i * 0.25;
+            const middle = i === 1;
+            return (
+              <div
+                key={app.name}
+                className="relative transition-all duration-500"
+                style={{
+                  opacity: visible ? 1 : 0,
+                  transform: visible
+                    ? `translateY(${middle ? "-6px" : "0"}) scale(${middle ? 1.05 : 0.96})`
+                    : "translateY(18px) scale(0.92)",
+                }}
+              >
+                <div
+                  className="w-[92px] sm:w-[112px] h-[184px] sm:h-[216px] rounded-[22px] sm:rounded-[26px] p-[4px]"
+                  style={{
+                    background: "linear-gradient(160deg,rgba(255,255,255,0.42),rgba(255,255,255,0.08))",
+                    boxShadow: middle
+                      ? "0 18px 44px rgba(0,0,0,0.42)"
+                      : "0 12px 32px rgba(0,0,0,0.32)",
+                  }}
+                >
+                  <div
+                    className="w-full h-full rounded-[19px] sm:rounded-[23px] overflow-hidden relative"
+                    style={{
+                      background:
+                        app.name === "Security"
+                          ? "linear-gradient(180deg,#063D35 0%,#082822 100%)"
+                          : "linear-gradient(180deg,#0A2A4A 0%,#06182E 100%)",
+                      border: "1px solid rgba(255,255,255,0.08)",
+                    }}
+                  >
+                    <div className="absolute top-1.5 left-1/2 -translate-x-1/2 w-8 sm:w-10 h-2.5 sm:h-3 rounded-full bg-black/55" />
+
+                    <div className="pt-5 sm:pt-6 px-2.5">
+                      <div className="flex items-center justify-between mb-2">
+                        <span className="text-[7px] sm:text-[8px] text-white/45">9:41</span>
+                        <span className="text-[7px] sm:text-[8px] text-white/45">●●●</span>
+                      </div>
+
+                      <div
+                        className="rounded-xl p-2 mb-2 text-left"
+                        style={{
+                          background: `${app.accent}18`,
+                          border: `1px solid ${app.accent}35`,
+                        }}
+                      >
+                        <div className="flex items-center gap-1.5">
+                          <span className="text-sm">{app.icon}</span>
+                          <div>
+                            <p className="text-[8px] sm:text-[9px] font-bold text-white">{app.header}</p>
+                            <p className="text-[6px] sm:text-[7px] text-white/40">Green Wave</p>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div className="space-y-1.5">
+                        {app.rows.map((row, rowIndex) => (
+                          <div
+                            key={row}
+                            className="rounded-lg px-2 py-1.5 text-left transition-all"
+                            style={{
+                              background:
+                                tick > 1.2 + rowIndex * 0.25
+                                  ? `${app.accent}16`
+                                  : "rgba(255,255,255,0.04)",
+                              border:
+                                tick > 1.2 + rowIndex * 0.25
+                                  ? `1px solid ${app.accent}28`
+                                  : "1px solid rgba(255,255,255,0.04)",
+                            }}
+                          >
+                            <p className="text-[6.5px] sm:text-[7.5px] font-medium text-white/70">{row}</p>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+
+                    <div
+                      className="absolute bottom-0 left-0 right-0 px-2 py-2 border-t"
+                      style={{ borderColor: "rgba(255,255,255,0.06)", background: "rgba(0,0,0,0.12)" }}
+                    >
+                      <p className="text-[5px] sm:text-[6px] text-white/35 text-center">{app.footer}</p>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="mt-2 flex items-center justify-center gap-1.5">
+                  <span className="w-1.5 h-1.5 rounded-full" style={{ background: app.accent }} />
+                  <span className="text-[9px] sm:text-[10px] font-semibold text-white/65">{app.name}</span>
+                </div>
+              </div>
+            );
+          })}
+        </div>
       </div>
+
+      <SceneLabel text="Resident. Admin. Security. One Hominode ecosystem." />
     </SceneWrap>
   );
 }
