@@ -33,7 +33,7 @@ const footerSections = [
     title: "Company",
     links: [
       { l: "About Hominode", href: "#product" },
-      { l: "Book a Demo", href: "#contact" },
+      { l: "Book a Demo", href: "#book-demo" },
     ],
   },
   {
@@ -59,8 +59,8 @@ function goNav(e: React.MouseEvent<HTMLAnchorElement>, href: string, onContact?:
     return;
   }
 
-  // Handle contact modal trigger
-  if (href === "#contact" && onContact) {
+  // Handle demo modal trigger
+  if (href === "#book-demo" && onContact) {
     e.preventDefault();
     onContact();
     return;
