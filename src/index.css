@@ -112,6 +112,10 @@ html {
   scrollbar-color: var(--scrollbar) transparent;
 }
 
+section[id] {
+  scroll-margin-top: 84px;
+}
+
 body {
   background-color: var(--bg-1);
   color: var(--text-1);
