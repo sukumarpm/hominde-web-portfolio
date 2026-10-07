@@ -140,7 +140,7 @@ export default function QuickFeatureCards() {
     <section
       id="quick-features"
       className="py-20 px-6 section-fade theme-transition"
-      style={{ background: "linear-gradient(180deg, #F7FAFC 0%, #EEF7FA 100%)" }}
+      style={{ background: "var(--section-shade)" }}
       aria-labelledby="quick-features-heading"
     >
       <div className="max-w-6xl mx-auto">
