@@ -11,22 +11,19 @@ export const HOMINODE_DEMO_VIDEO: string | null = null;
 
 export const HOMINODE_DEMO_POSTER: string | null = null;
 
-export const HOMINODE_DEMO_DURATION = "3 min";
+export const HOMINODE_DEMO_DURATION = "1 min 15 sec";
 
 export const HOMINODE_DEMO_TITLE = "Hominode Platform Demo";
 
 export const HOMINODE_DEMO_CHAPTERS = [
-  { id: 1,  label: "Green Wave",        time: 5   },
-  { id: 2,  label: "Resident App",      time: 15  },
-  { id: 3,  label: "Visitors & Gates",  time: 27  },
-  { id: 4,  label: "Security",          time: 40  },
-  { id: 5,  label: "Billing V2",        time: 52  },
-  { id: 6,  label: "Amenities",         time: 64  },
-  { id: 7,  label: "Parcels",           time: 75  },
-  { id: 8,  label: "Events",            time: 87  },
-  { id: 9,  label: "Payments",          time: 99  },
-  { id: 10, label: "Complaints",        time: 110 },
-  { id: 11, label: "Households",        time: 121 },
-  { id: 12, label: "Admin",             time: 132 },
-  { id: 13, label: "Connected Apps",    time: 145 },
+  { id: 1,  label: "Green Wave",        time: 4  },
+  { id: 2,  label: "Resident App",      time: 12 },
+  { id: 3,  label: "Visitors & Gates",  time: 19 },
+  { id: 4,  label: "Billing & Payments",time: 27 },
+  { id: 5,  label: "Amenities",         time: 35 },
+  { id: 6,  label: "Parcels",           time: 42 },
+  { id: 7,  label: "Events",            time: 49 },
+  { id: 8,  label: "Complaints",        time: 56 },
+  { id: 9,  label: "Security",          time: 63 },
+  { id: 10, label: "Final",             time: 70 },
 ] as const;
