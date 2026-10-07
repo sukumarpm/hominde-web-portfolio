@@ -14,6 +14,9 @@
   --bg-3:      #EDF4F7;
   --surface:   #FFFFFF;
   --card:      #FFFFFF;
+  --hero-shade: linear-gradient(135deg, #F7FBFD 0%, #EDF7FA 46%, #F5F8FC 100%);
+  --section-shade: linear-gradient(180deg, #F7FAFC 0%, #EEF7FA 100%);
+  --trust-shade: linear-gradient(90deg, #F8FBFD 0%, #EAF7FA 50%, #F8FBFD 100%);
 
   /* Borders */
   --border:        #E2E8F0;
@@ -60,6 +63,9 @@
   --bg-3:      #082A46;
   --surface:   #082A46;
   --card:      #082A46;
+  --hero-shade: linear-gradient(135deg, #04152F 0%, #061C4C 54%, #082A46 100%);
+  --section-shade: linear-gradient(180deg, #04152F 0%, #061C4C 100%);
+  --trust-shade: linear-gradient(90deg, #04152F 0%, #082A46 50%, #04152F 100%);
 
   /* Borders */
   --border:        rgba(148,163,184,0.12);
