@@ -13,7 +13,7 @@ const brands = [
 
 export default function WhiteLabel() {
   return (
-    <section className="py-24 px-6 section-fade theme-transition" style={{background:"var(--bg)"}}>
+    <section id="white-label" className="py-24 px-6 section-fade theme-transition" style={{background:"var(--bg)"}}>
       <div className="max-w-6xl mx-auto">
         <div className="flex flex-col lg:flex-row items-start gap-14">
           <div className="flex-1 max-w-lg">
