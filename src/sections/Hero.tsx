@@ -354,7 +354,7 @@ export default function Hero({ onContact }: HeroProps) {
         ref={ref}
         id="hero"
         className="relative pt-24 pb-16 px-6 overflow-hidden theme-transition"
-        style={{ background: "linear-gradient(135deg, #F7FBFD 0%, #EDF7FA 46%, #F5F8FC 100%)" }}
+        style={{ background: "var(--hero-shade)" }}
         aria-labelledby="hero-heading"
       >
         {/* Background decorations */}
