@@ -285,7 +285,7 @@ function VideoPreviewCard({ onPlay }: { onPlay: () => void }) {
           <div className="text-center">
             <p className="text-sm font-semibold text-white">See Hominode in action</p>
             <p className="text-xs mt-0.5" style={{ color: "rgba(255,255,255,0.5)" }}>
-              2-minute platform overview
+              75-second platform overview
             </p>
           </div>
         </div>
@@ -354,7 +354,7 @@ export default function Hero({ onContact }: HeroProps) {
         ref={ref}
         id="hero"
         className="relative pt-24 pb-16 px-6 overflow-hidden theme-transition"
-        style={{ background: "var(--bg)" }}
+        style={{ background: "linear-gradient(135deg, #F7FBFD 0%, #EDF7FA 46%, #F5F8FC 100%)" }}
         aria-labelledby="hero-heading"
       >
         {/* Background decorations */}
@@ -362,7 +362,7 @@ export default function Hero({ onContact }: HeroProps) {
         <div
           className="absolute top-0 left-1/4 w-[500px] h-[500px] pointer-events-none"
           style={{
-            background: "radial-gradient(circle, rgba(14,71,120,0.12) 0%, transparent 70%)",
+            background: "radial-gradient(circle, rgba(58,166,200,0.18) 0%, transparent 70%)",
             filter: "blur(80px)",
           }}
           aria-hidden="true"
@@ -370,7 +370,7 @@ export default function Hero({ onContact }: HeroProps) {
         <div
           className="absolute bottom-0 right-1/4 w-[400px] h-[400px] pointer-events-none"
           style={{
-            background: "radial-gradient(circle, rgba(58,166,200,0.1) 0%, transparent 70%)",
+            background: "radial-gradient(circle, rgba(6,28,76,0.10) 0%, transparent 70%)",
             filter: "blur(80px)",
           }}
           aria-hidden="true"
