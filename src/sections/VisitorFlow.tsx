@@ -120,6 +120,7 @@ function VisitorCard() {
 export default function VisitorFlow() {
   return (
     <section
+      id="visitor-management"
       className="py-28 px-6 section-fade theme-transition"
       style={{ background: "var(--bg-2)" }}
     >
