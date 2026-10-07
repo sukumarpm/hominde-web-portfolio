@@ -3,9 +3,9 @@ const maintenanceData = [55,70,80,65,90,75,85,92,60,78,88,95];
 const months          = ["J","F","M","A","M","J","J","A","S","O","N","D"];
 
 const metrics = [
-  { label:"Visitor Trends",         value:"+18%", sub:"vs last month",     color:"#2563EB" },
+  { label:"Visitor Trends",         value:"+18%", sub:"vs last month",     color:"#0E4778" },
   { label:"Maintenance Collection", value:"92%",  sub:"collection rate",   color:"#059669" },
-  { label:"Amenity Utilization",    value:"74%",  sub:"avg occupancy",     color:"#7C3AED" },
+  { label:"Amenity Utilization",    value:"74%",  sub:"avg occupancy",     color:"#3AA6C8" },
   { label:"Parking Utilization",    value:"78%",  sub:"slots occupied",    color:"#D97706" },
   { label:"Resident Engagement",    value:"98%",  sub:"active this month", color:"#DB2777" },
   { label:"Complaint Resolution",   value:"94%",  sub:"resolved on time",  color:"#0D9488" },
@@ -47,7 +47,7 @@ export default function Analytics() {
   return (
     <section
       className="py-28 px-6 section-fade theme-transition"
-      style={{ background:"var(--bg-2)" }}
+      style={{ background:"linear-gradient(180deg,#F7FAFC 0%,#EEF7FA 100%)" }}
     >
       <div className="max-w-6xl mx-auto">
         {/* Heading */}
@@ -130,9 +130,9 @@ export default function Analytics() {
               >
                 <div className="flex items-center justify-between mb-3">
                   <p className="text-xs font-semibold" style={{ color:"var(--text-2)" }}>Visitor Traffic</p>
-                  <span className="text-[9px] px-2 py-0.5 rounded-full" style={{ background:"rgba(37,99,235,0.12)", color:"#2563EB" }}>2026</span>
+                  <span className="text-[9px] px-2 py-0.5 rounded-full" style={{ background:"rgba(14,71,120,0.12)", color:"#0E4778" }}>2026</span>
                 </div>
-                <MiniBarChart data={visitorData} color="#2563EB"/>
+                <MiniBarChart data={visitorData} color="#0E4778"/>
               </div>
 
               {/* Maintenance chart */}
@@ -155,7 +155,7 @@ export default function Analytics() {
                 <p className="text-xs font-semibold mb-4" style={{ color:"var(--text-2)" }}>Utilization Rates</p>
                 <div className="grid grid-cols-3 gap-2">
                   {[
-                    { label:"Amenity",    value:74, color:"#7C3AED" },
+                    { label:"Amenity",    value:74, color:"#3AA6C8" },
                     { label:"Parking",    value:78, color:"#D97706" },
                     { label:"Complaints", value:94, color:"#0D9488" },
                   ].map((d) => (
