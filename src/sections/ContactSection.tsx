@@ -32,16 +32,6 @@ const CONTACT_INFO = [
   {
     icon: (
       <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
-        <path d="M3 3.5C3 2.67 3.67 2 4.5 2h2l1.5 4L6.5 7.5a10 10 0 0 0 4 4l1.5-1.5 4 1.5v2c0 .83-.67 1.5-1.5 1.5C7.16 16 2 10.84 2 4.5A1.5 1.5 0 0 1 3 3.5z" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
-      </svg>
-    ),
-    label: "Call us",
-    value: "+91 XXXXX XXXXX",
-    href: "tel:+91XXXXXXXXXX",
-  },
-  {
-    icon: (
-      <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
         <circle cx="9" cy="7.5" r="2.5" stroke="currentColor" strokeWidth="1.4" />
         <path d="M9 1.5C5.96 1.5 3.5 3.96 3.5 7c0 4.5 5.5 9.5 5.5 9.5s5.5-5 5.5-9.5c0-3.04-2.46-5.5-5.5-5.5z" stroke="currentColor" strokeWidth="1.4" />
       </svg>

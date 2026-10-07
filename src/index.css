@@ -8,12 +8,15 @@
 ══════════════════════════════════════════ */
 :root {
   /* Backgrounds */
-  --bg:        #F0F4FF;
+  --bg:        #F4F8FB;
   --bg-1:      #FFFFFF;
-  --bg-2:      #F8FAFC;
-  --bg-3:      #F1F5F9;
+  --bg-2:      #F6F9FB;
+  --bg-3:      #EDF4F7;
   --surface:   #FFFFFF;
   --card:      #FFFFFF;
+  --hero-shade: linear-gradient(135deg, #F7FBFD 0%, #EDF7FA 46%, #F5F8FC 100%);
+  --section-shade: linear-gradient(180deg, #F7FAFC 0%, #EEF7FA 100%);
+  --trust-shade: linear-gradient(90deg, #F8FBFD 0%, #EAF7FA 50%, #F8FBFD 100%);
 
   /* Borders */
   --border:        #E2E8F0;
@@ -27,11 +30,11 @@
   --text-4: #94A3B8;
 
   /* Blue */
-  --blue:        #2563EB;
-  --blue-2:      #1D4ED8;
-  --blue-bg:     #EFF6FF;
-  --blue-soft:   rgba(37,99,235,0.15);
-  --blue-border: #BFDBFE;
+  --blue:        #0E4778;
+  --blue-2:      #061C4C;
+  --blue-bg:     #EAF7FA;
+  --blue-soft:   rgba(58,166,200,0.16);
+  --blue-border: #BFE4EE;
 
   /* Green */
   --green:        #059669;
@@ -39,8 +42,8 @@
   --green-border: #A7F3D0;
 
   /* Shadows */
-  --card-shadow: 0 1px 3px rgba(0,0,0,0.06), 0 4px 16px rgba(0,0,0,0.04);
-  --card-hover:  0 8px 32px rgba(37,99,235,0.12), 0 2px 8px rgba(0,0,0,0.06);
+  --card-shadow: 0 10px 30px rgba(6,28,76,0.06), 0 2px 8px rgba(6,28,76,0.04);
+  --card-hover:  0 20px 50px rgba(6,28,76,0.12), 0 8px 22px rgba(14,71,120,0.08);
 
   /* Navbar */
   --navbar-bg:     rgba(255,255,255,0.92);
@@ -54,12 +57,15 @@
 ══════════════════════════════════════════ */
 [data-theme="dark"] {
   /* Backgrounds */
-  --bg:        #060D1F;
-  --bg-1:      #060D1F;
-  --bg-2:      #080F26;
-  --bg-3:      #0C1530;
-  --surface:   #0C1530;
-  --card:      #0C1530;
+  --bg:        #04152F;
+  --bg-1:      #04152F;
+  --bg-2:      #061C4C;
+  --bg-3:      #082A46;
+  --surface:   #082A46;
+  --card:      #082A46;
+  --hero-shade: linear-gradient(135deg, #04152F 0%, #061C4C 54%, #082A46 100%);
+  --section-shade: linear-gradient(180deg, #04152F 0%, #061C4C 100%);
+  --trust-shade: linear-gradient(90deg, #04152F 0%, #082A46 50%, #04152F 100%);
 
   /* Borders */
   --border:        rgba(148,163,184,0.12);
@@ -73,11 +79,11 @@
   --text-4: #475569;
 
   /* Blue */
-  --blue:        #3B82F6;
-  --blue-2:      #2563EB;
-  --blue-bg:     rgba(37,99,235,0.14);
-  --blue-soft:   rgba(37,99,235,0.22);
-  --blue-border: rgba(59,130,246,0.35);
+  --blue:        #3AA6C8;
+  --blue-2:      #0E4778;
+  --blue-bg:     rgba(58,166,200,0.14);
+  --blue-soft:   rgba(58,166,200,0.22);
+  --blue-border: rgba(58,166,200,0.35);
 
   /* Green */
   --green:        #10B981;
@@ -92,7 +98,7 @@
   --navbar-bg:     rgba(6,13,31,0.94);
   --navbar-border: rgba(148,163,184,0.1);
 
-  --scrollbar: rgba(59,130,246,0.3);
+  --scrollbar: rgba(58,166,200,0.32);
 }
 
 /* ══════════════════════════════════════════
@@ -104,6 +110,10 @@ html {
   scroll-behavior: smooth;
   scrollbar-width: thin;
   scrollbar-color: var(--scrollbar) transparent;
+}
+
+section[id] {
+  scroll-margin-top: 84px;
 }
 
 body {
@@ -123,15 +133,15 @@ h1,h2,h3,h4,h5 { font-family: 'Instrument Sans', sans-serif; }
    UTILITIES
 ══════════════════════════════════════════ */
 .dot-grid {
-  background-image: radial-gradient(circle, rgba(37,99,235,0.12) 1px, transparent 1px);
+  background-image: radial-gradient(circle, rgba(14,71,120,0.12) 1px, transparent 1px);
   background-size: 28px 28px;
 }
 [data-theme="dark"] .dot-grid {
-  background-image: radial-gradient(circle, rgba(59,130,246,0.15) 1px, transparent 1px);
+  background-image: radial-gradient(circle, rgba(58,166,200,0.15) 1px, transparent 1px);
 }
 
 .gradient-text {
-  background: linear-gradient(135deg, #2563EB 0%, #6366F1 50%, #8B5CF6 100%);
+  background: linear-gradient(135deg, #061C4C 0%, #0E4778 52%, #3AA6C8 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -209,13 +219,13 @@ h1,h2,h3,h4,h5 { font-family: 'Instrument Sans', sans-serif; }
    BUTTON HELPERS
 ══════════════════════════════════════════ */
 .btn-primary {
-  background: linear-gradient(135deg, #2563EB, #1D4ED8);
+  background: linear-gradient(135deg, #3AA6C8, #0E4778);
   color: #fff;
-  box-shadow: 0 4px 16px rgba(37,99,235,0.35);
+  box-shadow: 0 4px 16px rgba(14,71,120,0.30);
   transition: box-shadow 0.2s ease, transform 0.2s ease;
 }
 .btn-primary:hover {
-  box-shadow: 0 8px 28px rgba(37,99,235,0.5);
+  box-shadow: 0 8px 28px rgba(14,71,120,0.42);
   transform: translateY(-1px);
 }
 

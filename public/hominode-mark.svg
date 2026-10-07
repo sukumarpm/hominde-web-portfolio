@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-labelledby="title">
+  <title id="title">Hominode</title>
+  <defs>
+    <linearGradient id="metal" x1="18" y1="18" x2="108" y2="110" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#FFFFFF"/>
+      <stop offset="0.28" stop-color="#DDE7EE"/>
+      <stop offset="0.56" stop-color="#A8BAC6"/>
+      <stop offset="0.78" stop-color="#F4F8FA"/>
+      <stop offset="1" stop-color="#8CA3B0"/>
+    </linearGradient>
+    <linearGradient id="edge" x1="25" y1="28" x2="103" y2="101" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#72C5DD"/>
+      <stop offset="0.55" stop-color="#3AA6C8"/>
+      <stop offset="1" stop-color="#0E4778"/>
+    </linearGradient>
+    <filter id="glow" x="-40%" y="-40%" width="180%" height="180%">
+      <feGaussianBlur stdDeviation="4.5"/>
+    </filter>
+  </defs>
+
+  <g fill="none" stroke="url(#edge)" stroke-width="17" stroke-linecap="round" stroke-linejoin="round" opacity="0.34" filter="url(#glow)">
+    <path d="M30 103V48L48 28"/>
+    <path d="M98 103V48L80 28"/>
+    <path d="M31 67H97"/>
+  </g>
+
+  <g fill="none" stroke="url(#metal)" stroke-width="11" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M30 103V48L48 28"/>
+    <path d="M98 103V48L80 28"/>
+    <path d="M31 67H97"/>
+  </g>
+
+  <g fill="none" stroke="url(#edge)" stroke-width="2.2" stroke-linecap="round" opacity="0.95">
+    <path d="M25.5 102V46.5L45.5 24.5"/>
+    <path d="M102.5 102V46.5L82.5 24.5"/>
+    <path d="M31 61.5H97"/>
+  </g>
+</svg>

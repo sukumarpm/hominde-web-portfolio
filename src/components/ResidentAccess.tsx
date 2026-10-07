@@ -51,7 +51,7 @@ export default function ResidentAccess() {
             >
                 <a href="/" className="inline-flex items-center gap-3">
                     <img
-                        src="/logo.png"
+                        src="/hominode-mark.svg"
                         alt="Hominode"
                         className="h-10 w-10 object-contain"
                     />

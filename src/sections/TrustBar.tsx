@@ -9,7 +9,7 @@ const indicators = [
 
 export default function TrustBar() {
   return (
-    <section className="py-12 px-6 border-y section-fade theme-transition" style={{ background:"var(--surface)", borderColor:"var(--border)" }}>
+    <section className="py-12 px-6 border-y section-fade theme-transition" style={{ background:"var(--trust-shade)", borderColor:"var(--border)" }}>
       <div className="max-w-4xl mx-auto text-center">
         <p className="text-sm mb-6" style={{ color:"var(--text-3)" }}>
           Everything your community needs, connected in one place.

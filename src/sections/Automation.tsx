@@ -56,7 +56,7 @@ function WorkflowCard({ w }: { w: Workflow }) {
 
 export default function Automation() {
   return (
-    <section className="py-28 px-6 section-fade theme-transition" style={{ background:"var(--bg-2)" }}>
+    <section id="automation" className="py-28 px-6 section-fade theme-transition" style={{ background:"var(--bg-2)" }}>
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-16">
           <p className="text-sm font-semibold tracking-wider uppercase mb-4" style={{ color:"var(--blue)" }}>Automation</p>

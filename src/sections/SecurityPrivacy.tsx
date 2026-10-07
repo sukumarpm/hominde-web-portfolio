@@ -11,7 +11,7 @@ const features = [
 
 export default function SecurityPrivacy() {
   return (
-    <section id="security" className="py-28 px-6 section-fade theme-transition" style={{ background:"var(--bg-1)" }}>
+    <section id="security-privacy" className="py-28 px-6 section-fade theme-transition" style={{ background:"var(--bg-1)" }}>
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-16">
           <p className="text-sm font-semibold tracking-wider uppercase mb-4" style={{ color:"#059669" }}>Security & Privacy</p>

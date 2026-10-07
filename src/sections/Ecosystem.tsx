@@ -34,6 +34,7 @@ function py(angle: number, r: number) { return CY + r * Math.sin(toRad(angle)); 
 export default function Ecosystem() {
   return (
     <section
+      id="ecosystem"
       className="py-24 px-6 overflow-hidden section-fade theme-transition"
       style={{ background: "var(--bg-2)" }}
       aria-labelledby="ecosystem-heading"
