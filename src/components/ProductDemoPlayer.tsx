@@ -8,23 +8,17 @@ import { useState, useEffect, useRef, useCallback } from "react";
 
 /* ─── scene list ──────────────────────────────────────────────────── */
 const SCENES = [
-  { id: 1,  title: "Intro",                 duration: 5  },
-  { id: 2,  title: "Green Wave Overview",   duration: 10 },
-  { id: 3,  title: "Resident App",          duration: 12 },
-  { id: 4,  title: "Visitors & Gates",      duration: 13 },
-  { id: 5,  title: "Security Operations",   duration: 12 },
-  { id: 6,  title: "Billing V2",            duration: 12 },
-  { id: 7,  title: "Amenities & Bookings",  duration: 11 },
-  { id: 8,  title: "Parcels",               duration: 12 },
-  { id: 9,  title: "Events & Announcements",duration: 12 },
-  { id: 10, title: "Payment History",       duration: 11 },
-  { id: 11, title: "Complaints",            duration: 11 },
-  { id: 12, title: "Households",            duration: 11 },
-  { id: 13, title: "Admin Control",         duration: 13 },
-  { id: 14, title: "Connected Apps",        duration: 10 },
-  { id: 15, title: "Security Layer",        duration: 10 },
-  { id: 16, title: "Demo Community",        duration: 10 },
-  { id: 17, title: "Final",                 duration:  5 },
+  { id: 1,  title: "Intro",                   duration: 4 },
+  { id: 2,  title: "Green Wave Overview",     duration: 8 },
+  { id: 3,  title: "Resident App",            duration: 7 },
+  { id: 4,  title: "Visitors & Gates",        duration: 8 },
+  { id: 5,  title: "Billing & Payments",      duration: 8 },
+  { id: 6,  title: "Amenities & Bookings",    duration: 7 },
+  { id: 7,  title: "Parcels",                 duration: 7 },
+  { id: 8,  title: "Events & Announcements",  duration: 7 },
+  { id: 9,  title: "Complaints",              duration: 7 },
+  { id: 10, title: "Security Operations",     duration: 7 },
+  { id: 11, title: "Final",                   duration: 5 },
 ] as const;
 
 /* ─── small helper components ─────────────────────────────────────── */
@@ -91,7 +85,7 @@ function Scene01({ tick }: { tick: number }) {
           Smart place. Better lives.
         </p>
         <p className="text-sm text-center max-w-sm"
-          style={{ color: "rgba(255,255,255,0.45)", opacity: tick > 2 ? 1 : 0, transition: "opacity 0.8s ease 0.8s" }}>
+          style={{ color: "rgba(255,255,255,0.45)", opacity: tick > 1.5 ? 1 : 0, transition: "opacity 0.8s ease 0.8s" }}>
           A real Hominode walkthrough using the fictional Green Wave Residences demo community.
         </p>
       </div>
@@ -209,7 +203,7 @@ function Scene04({ tick }: { tick: number }) {
     { icon: "🚪", text: "Gate Entry" },
     { icon: "✓",  text: "Mark Exit" },
   ];
-  const active = Math.min(Math.floor(tick * 0.7), steps.length - 1);
+  const active = Math.min(Math.floor(tick * 0.9), steps.length - 1);
   return (
     <SceneWrap bg="linear-gradient(160deg,#030A1B 0%,#061C4C 100%)">
       <div className="w-full max-w-xs space-y-2">
@@ -269,7 +263,7 @@ function Scene06({ tick }: { tick: number }) {
     { icon: "💳", text: "Payment Recorded" },
     { icon: "🧾", text: "Allocation & Receipt History" },
   ];
-  const active = Math.min(Math.floor(tick * 0.55), workflow.length - 1);
+  const active = Math.min(Math.floor(tick * 0.8), workflow.length - 1);
   return (
     <SceneWrap bg="linear-gradient(160deg,#030A1B 0%,#061C4C 100%)">
       <div className="w-full max-w-xs">
@@ -292,7 +286,19 @@ function Scene06({ tick }: { tick: number }) {
           ))}
         </div>
       </div>
-      <SceneLabel text="Billing V2 demonstrates six months of realistic billing history." />
+      <div className="mt-3 flex gap-2">
+        {[
+          { l: "Settlements", v: "12" },
+          { l: "Allocations", v: "56" },
+        ].map((item) => (
+          <div key={item.l} className="flex-1 rounded-lg px-3 py-2 text-center"
+            style={{ background: "rgba(16,185,129,0.10)", border: "1px solid rgba(16,185,129,0.22)" }}>
+            <p className="text-xs font-bold text-emerald-300">{item.v}</p>
+            <p className="text-[8px] text-white/40">{item.l}</p>
+          </div>
+        ))}
+      </div>
+      <SceneLabel text="Six months of billing plus settlement and allocation history." />
     </SceneWrap>
   );
 }
@@ -306,7 +312,7 @@ function Scene07({ tick }: { tick: number }) {
     { icon: "🎉", name: "Hall",       meta: "Event ready" },
     { icon: "🎾", name: "Recreation", meta: "Timed access" },
   ];
-  const selected = Math.min(Math.floor(tick * 0.45), amenities.length - 1);
+  const selected = Math.min(Math.floor(tick * 0.75), amenities.length - 1);
   return (
     <SceneWrap bg="linear-gradient(160deg,#030A1B 0%,#071D3A 100%)">
       <div className="w-full max-w-sm">
@@ -345,7 +351,7 @@ function Scene08({ tick }: { tick: number }) {
     { icon:"🪪", label:"Handover tracked", value:"✓", color:"#3AA6C8" },
   ];
   const stages = ["Received", "Logged", "Resident notified", "Collected"];
-  const active = Math.min(Math.floor(tick * 0.6), stages.length - 1);
+  const active = Math.min(Math.floor(tick * 0.8), stages.length - 1);
   return (
     <SceneWrap bg="linear-gradient(160deg,#030A1B 0%,#061C4C 100%)">
       <div className="w-full max-w-xs">
@@ -734,19 +740,13 @@ export default function ProductDemoPlayer({ onCTA, jumpToScene }: ProductDemoPla
         {sceneIdx === 1  && <Scene02 tick={tick} />}
         {sceneIdx === 2  && <Scene03 tick={tick} />}
         {sceneIdx === 3  && <Scene04 tick={tick} />}
-        {sceneIdx === 4  && <Scene05 tick={tick} />}
-        {sceneIdx === 5  && <Scene06 tick={tick} />}
-        {sceneIdx === 6  && <Scene07 tick={tick} />}
-        {sceneIdx === 7  && <Scene08 tick={tick} />}
-        {sceneIdx === 8  && <Scene09 tick={tick} />}
-        {sceneIdx === 9  && <Scene10 tick={tick} />}
-        {sceneIdx === 10 && <Scene11 tick={tick} />}
-        {sceneIdx === 11 && <Scene12 tick={tick} />}
-        {sceneIdx === 12 && <Scene13 tick={tick} />}
-        {sceneIdx === 13 && <Scene14 tick={tick} />}
-        {sceneIdx === 14 && <Scene15 tick={tick} />}
-        {sceneIdx === 15 && <Scene16 tick={tick} />}
-        {sceneIdx === 16 && <Scene17 tick={tick} onCTA={onCTA} />}
+        {sceneIdx === 4  && <Scene06 tick={tick} />}
+        {sceneIdx === 5  && <Scene07 tick={tick} />}
+        {sceneIdx === 6  && <Scene08 tick={tick} />}
+        {sceneIdx === 7  && <Scene09 tick={tick} />}
+        {sceneIdx === 8  && <Scene11 tick={tick} />}
+        {sceneIdx === 9  && <Scene05 tick={tick} />}
+        {sceneIdx === 10 && <Scene17 tick={tick} onCTA={onCTA} />}
 
         {/* Scene label top-left */}
         <div className="absolute top-3 left-3 flex items-center gap-1.5 pointer-events-none" aria-hidden="true">
