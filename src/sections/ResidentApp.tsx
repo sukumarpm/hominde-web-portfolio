@@ -136,6 +136,7 @@ function PhoneMockup() {
 export default function ResidentApp() {
   return (
     <section
+      id="resident-app"
       className="py-28 px-6 section-fade theme-transition"
       style={{ background: "var(--bg-1)" }}
     >
