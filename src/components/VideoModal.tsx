@@ -232,7 +232,7 @@ export default function VideoModal({
       role="dialog"
       aria-modal="true"
       aria-label="Hominode product demo video"
-      className="fixed inset-0 z-[2000] flex items-center justify-center p-4 sm:p-6"
+      className="fixed inset-0 z-[2000] flex items-center justify-center p-0 sm:p-6"
       style={{
         background: "rgba(0,0,0,0.88)",
         backdropFilter: "blur(12px)",
@@ -245,7 +245,7 @@ export default function VideoModal({
       {/* Modal container */}
       <div
         ref={containerRef}
-        className="relative w-full max-w-5xl"
+        className="relative w-full h-[100dvh] sm:h-auto sm:max-w-5xl"
         style={{ animation: "slide-up-modal 0.25s cubic-bezier(0.16,1,0.3,1) forwards" }}
         onMouseMove={hasRealVideo ? resetHideTimer : undefined}
       >
@@ -254,8 +254,8 @@ export default function VideoModal({
           ref={closeBtnRef}
           onClick={onClose}
           aria-label="Close video modal"
-          className="absolute -top-10 right-0 z-10 flex items-center gap-1.5 text-sm font-medium transition-opacity duration-150 hover:opacity-100 opacity-70 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-black"
-          style={{ color: "#fff" }}
+          className="absolute top-3 right-3 z-30 flex items-center gap-1.5 rounded-full px-3 py-2 text-sm font-medium transition-opacity duration-150 hover:opacity-100 opacity-90 focus:outline-none focus-visible:ring-2 focus-visible:ring-white"
+          style={{ color: "#fff", background: "rgba(6,13,31,0.68)", backdropFilter: "blur(10px)", WebkitBackdropFilter: "blur(10px)", border: "1px solid rgba(255,255,255,0.12)" }}
         >
           <span>Close</span>
           <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
@@ -266,7 +266,7 @@ export default function VideoModal({
         {/* Chapter badge */}
         {activeChapterLabel && (
           <div
-            className="absolute -top-10 left-0 flex items-center gap-2 text-xs font-medium"
+            className="absolute top-3 left-3 z-30 hidden sm:flex items-center gap-2 text-xs font-medium"
             style={{ color: "rgba(255,255,255,0.7)" }}
             aria-live="polite"
           >
@@ -282,13 +282,11 @@ export default function VideoModal({
 
         {/* Video / demo area */}
         <div
-          className="relative overflow-hidden"
+          className="demo-video-stage relative overflow-hidden"
           style={{
-            borderRadius: "16px",
             background: "#060D1F",
             border: "1px solid rgba(255,255,255,0.1)",
             boxShadow: "0 32px 80px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.05)",
-            aspectRatio: "16/9",
           }}
         >
           {hasRealVideo ? (
@@ -297,7 +295,7 @@ export default function VideoModal({
               <video
                 ref={videoRef}
                 src={videoSrc!}
-                className="w-full h-full object-cover"
+                className="w-full h-full object-contain"
                 playsInline
                 muted={muted}
                 onTimeUpdate={handleTimeUpdate}
@@ -434,7 +432,7 @@ export default function VideoModal({
                         value={muted ? 0 : volume}
                         onChange={handleVolumeChange}
                         aria-label="Volume"
-                        className="w-16 h-1 accent-blue-500 cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-white rounded"
+                        className="hidden sm:block w-16 h-1 accent-blue-500 cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-white rounded"
                         style={{ accentColor: "#3B82F6" }}
                       />
                     </div>
@@ -474,7 +472,7 @@ export default function VideoModal({
 
         {/* Keyboard hint */}
         <div
-          className="mt-3 flex items-center justify-center gap-4 text-[11px]"
+          className="mt-3 hidden sm:flex items-center justify-center gap-4 text-[11px]"
           style={{ color: "rgba(255,255,255,0.35)" }}
           aria-hidden="true"
         >
@@ -499,6 +497,17 @@ export default function VideoModal({
         @keyframes slide-up-modal {
           from { opacity: 0; transform: translateY(20px) scale(0.98); }
           to   { opacity: 1; transform: translateY(0) scale(1); }
+        }
+        .demo-video-stage {
+          height: 100dvh;
+          border-radius: 0;
+        }
+        @media (min-width: 640px) {
+          .demo-video-stage {
+            height: auto;
+            aspect-ratio: 16 / 9;
+            border-radius: 16px;
+          }
         }
         @media (prefers-reduced-motion: reduce) {
           [style*="fade-in-modal"],
