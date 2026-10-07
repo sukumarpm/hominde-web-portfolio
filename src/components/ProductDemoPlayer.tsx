@@ -24,7 +24,7 @@ const SCENES = [
 /* ─── small helper components ─────────────────────────────────────── */
 function SceneWrap({ children, bg = "#061C4C" }: { children: React.ReactNode; bg?: string }) {
   return (
-    <div className="w-full h-full flex flex-col items-center justify-center relative overflow-hidden p-4 sm:p-8"
+    <div className="demo-scene-wrap w-full h-full flex flex-col items-center justify-center relative overflow-hidden p-4 sm:p-8"
       style={{ background: bg }}>
       {children}
     </div>
@@ -33,7 +33,7 @@ function SceneWrap({ children, bg = "#061C4C" }: { children: React.ReactNode; bg
 
 function SceneLabel({ text }: { text: string }) {
   return (
-    <div className="absolute bottom-6 left-0 right-0 text-center px-4">
+    <div className="demo-scene-label absolute bottom-6 left-0 right-0 text-center px-4">
       <p className="text-base sm:text-lg font-semibold text-white/80" style={{ fontFamily: "Instrument Sans, sans-serif" }}>
         {text}
       </p>
@@ -143,7 +143,7 @@ function Scene01({ tick }: { tick: number }) {
           Resident · Admin · Security — one connected platform
         </p>
 
-        <div className="flex items-end justify-center gap-3 sm:gap-5">
+        <div className="demo-app-row flex items-end justify-center gap-3 sm:gap-5">
           {apps.map((app, i) => {
             const visible = tick > 1.2 + i * 0.18;
             const middle = i === 1;
@@ -159,7 +159,7 @@ function Scene01({ tick }: { tick: number }) {
                 }}
               >
                 <div
-                  className="w-[92px] sm:w-[110px] h-[176px] sm:h-[206px] rounded-[22px] sm:rounded-[26px] p-[4px]"
+                  className="demo-phone-shell w-[92px] sm:w-[110px] h-[176px] sm:h-[206px] rounded-[22px] sm:rounded-[26px] p-[4px]"
                   style={{
                     background: "linear-gradient(160deg,rgba(255,255,255,0.40),rgba(255,255,255,0.08))",
                     boxShadow: middle
@@ -283,7 +283,7 @@ function Scene02({ tick }: { tick: number }) {
             </div>
             <span className="px-2 py-1 rounded-full text-[8px] font-semibold" style={{ background: "rgba(58,166,200,0.14)", color: "#72C5DD", border: "1px solid rgba(58,166,200,0.28)" }}>GREEN-WAVE</span>
           </div>
-          <div className="grid grid-cols-4 gap-2">
+          <div className="demo-stat-grid grid grid-cols-4 gap-2">
             {stats.map((s, i) => (
               <div key={s.label}
                 className="rounded-lg p-2.5 text-center transition-all duration-500"
@@ -390,7 +390,7 @@ function Scene05({ tick }: { tick: number }) {
           </div>
           <p className="text-lg font-bold text-white">Green Wave gate operations</p>
         </div>
-        <div className="grid grid-cols-3 gap-2">
+        <div className="demo-feature-grid grid grid-cols-3 gap-2">
           {features.map((f, i) => (
             <div key={f} className="rounded-xl p-2.5 text-center transition-all duration-400"
               style={{
@@ -474,7 +474,7 @@ function Scene07({ tick }: { tick: number }) {
           <p className="text-xs font-semibold text-white/45 uppercase tracking-wider">Amenities</p>
           <span className="text-[9px] px-2 py-1 rounded-full" style={{ background: "rgba(58,166,200,0.12)", color: "#72C5DD" }}>6 facilities · 24 bookings</span>
         </div>
-        <div className="grid grid-cols-3 gap-2">
+        <div className="demo-feature-grid grid grid-cols-3 gap-2">
           {amenities.map((a, i) => (
             <div key={a.name} className="rounded-xl p-2.5 text-center transition-all duration-300"
               style={{
@@ -983,6 +983,60 @@ export default function ProductDemoPlayer({ onCTA, jumpToScene }: ProductDemoPla
         @keyframes fadeInUp {
           from { opacity: 0; transform: translateY(8px); }
           to   { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (max-width: 640px) {
+          .demo-scene-wrap {
+            justify-content: center;
+            padding: 48px 16px 72px !important;
+          }
+
+          .demo-scene-label {
+            bottom: 12px !important;
+            padding: 0 18px !important;
+          }
+
+          .demo-scene-label p {
+            font-size: 12px !important;
+            line-height: 1.35 !important;
+            font-weight: 600 !important;
+          }
+
+          .demo-app-row {
+            gap: 8px !important;
+          }
+
+          .demo-phone-shell {
+            width: 82px !important;
+            height: 160px !important;
+            border-radius: 20px !important;
+            padding: 3px !important;
+          }
+
+          .demo-stat-grid {
+            grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+            gap: 8px !important;
+          }
+
+          .demo-feature-grid {
+            grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+          }
+        }
+
+        @media (max-width: 370px) {
+          .demo-scene-wrap {
+            padding-left: 10px !important;
+            padding-right: 10px !important;
+          }
+
+          .demo-phone-shell {
+            width: 76px !important;
+            height: 150px !important;
+          }
+
+          .demo-app-row {
+            gap: 5px !important;
+          }
         }
       `}</style>
     </div>
