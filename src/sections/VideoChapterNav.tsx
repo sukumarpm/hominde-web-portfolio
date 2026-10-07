@@ -5,7 +5,7 @@
  */
 
 import { useRef } from "react";
-import { HOMINODE_DEMO_CHAPTERS } from "../assets/videos/videoConfig";
+import { HOMINODE_DEMO_CHAPTERS, HOMINODE_DEMO_DURATION } from "../assets/videos/videoConfig";
 
 export interface VideoChapterNavProps {
   activeChapter?: number;
@@ -13,19 +13,16 @@ export interface VideoChapterNavProps {
 }
 
 const CHAPTER_ICONS: Record<number, string> = {
-  1:  "▦",
-  2:  "📱",
-  3:  "🚗",
-  4:  "🛡️",
-  5:  "💳",
-  6:  "🏊",
-  7:  "🅿️",
-  8:  "📢",
-  9:  "🛒",
-  10: "🔧",
-  11: "👷",
-  12: "⚙️",
-  13: "🎨",
+  1: "🏘️",
+  2: "📱",
+  3: "🚗",
+  4: "💳",
+  5: "🏊",
+  6: "📦",
+  7: "📢",
+  8: "🔧",
+  9: "🛡️",
+  10: "✦",
 };
 
 export default function VideoChapterNav({
@@ -42,6 +39,9 @@ export default function VideoChapterNav({
   const handleSelect = (id: number) => {
     onChapterSelect(id);
     scrollToChip(id);
+    window.dispatchEvent(
+      new CustomEvent("hominode:playDemoChapter", { detail: { chapterId: id } }),
+    );
   };
 
   return (
@@ -67,7 +67,7 @@ export default function VideoChapterNav({
             className="text-[11px] theme-transition"
             style={{ color: "var(--text-4)" }}
           >
-            {HOMINODE_DEMO_CHAPTERS.length} chapters · 3 min overview
+            {HOMINODE_DEMO_CHAPTERS.length} chapters · {HOMINODE_DEMO_DURATION} overview
           </p>
         </div>
 
