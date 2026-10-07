@@ -74,8 +74,11 @@ export default function VideoModal({
   useEffect(() => {
     if (open) {
       document.body.style.overflow = "hidden";
-      // Focus close button after paint
-      requestAnimationFrame(() => closeBtnRef.current?.focus());
+      // Keep keyboard accessibility on desktop without forcing a visible
+      // focus ring onto the close control on touch-only mobile browsers.
+      if (window.matchMedia("(pointer: fine)").matches) {
+        requestAnimationFrame(() => closeBtnRef.current?.focus());
+      }
     } else {
       document.body.style.overflow = "";
       setPlaying(false);
