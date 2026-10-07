@@ -9,11 +9,11 @@ const features = [
     icon: "👤",
     title: "Resident Management",
     desc: "Onboard residents, manage profiles, and track activity across every flat.",
-    color: "#2563EB",
+    color: "#0E4778",
     anchor: "#residents",
-    bg: "rgba(37,99,235,0.08)",
-    border: "rgba(37,99,235,0.18)",
-    hoverBorder: "rgba(37,99,235,0.45)",
+    bg: "rgba(14,71,120,0.08)",
+    border: "rgba(14,71,120,0.18)",
+    hoverBorder: "rgba(14,71,120,0.45)",
   },
   {
     icon: "🚗",
@@ -29,11 +29,11 @@ const features = [
     icon: "💳",
     title: "Maintenance",
     desc: "Generate bills, collect payments, and issue digital receipts automatically.",
-    color: "#7C3AED",
+    color: "#3AA6C8",
     anchor: "#maintenance",
-    bg: "rgba(124,58,237,0.08)",
-    border: "rgba(124,58,237,0.18)",
-    hoverBorder: "rgba(124,58,237,0.45)",
+    bg: "rgba(58,166,200,0.08)",
+    border: "rgba(58,166,200,0.18)",
+    hoverBorder: "rgba(58,166,200,0.45)",
   },
   {
     icon: "🏊",
@@ -49,11 +49,11 @@ const features = [
     icon: "🅿️",
     title: "Parking",
     desc: "Assign slots, track vehicles, and manage visitor parking in one view.",
-    color: "#4F46E5",
+    color: "#0E4778",
     anchor: "#parking",
-    bg: "rgba(79,70,229,0.08)",
-    border: "rgba(79,70,229,0.18)",
-    hoverBorder: "rgba(79,70,229,0.45)",
+    bg: "rgba(14,71,120,0.08)",
+    border: "rgba(14,71,120,0.18)",
+    hoverBorder: "rgba(14,71,120,0.45)",
   },
   {
     icon: "📢",
@@ -140,7 +140,7 @@ export default function QuickFeatureCards() {
     <section
       id="quick-features"
       className="py-20 px-6 section-fade theme-transition"
-      style={{ background: "var(--bg-2)" }}
+      style={{ background: "linear-gradient(180deg, #F7FAFC 0%, #EEF7FA 100%)" }}
       aria-labelledby="quick-features-heading"
     >
       <div className="max-w-6xl mx-auto">
