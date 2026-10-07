@@ -34,6 +34,7 @@ const bottomStats = [
 export default function AdminDashboard() {
   return (
     <section
+      id="admin-dashboard"
       className="py-28 px-6 section-fade theme-transition"
       style={{ background: "var(--bg-2)" }}
       aria-labelledby="admin-heading"
