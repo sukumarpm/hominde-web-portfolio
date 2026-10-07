@@ -887,9 +887,9 @@ export default function ProductDemoPlayer({ onCTA, jumpToScene }: ProductDemoPla
   const formatT = (s: number) => `${Math.floor(s / 60)}:${Math.floor(s % 60).toString().padStart(2, "0")}`;
 
   return (
-    <div className="w-full h-full flex flex-col" style={{ background: "#061C4C" }}>
+    <div className="w-full h-full min-h-0 flex flex-col" style={{ background: "#061C4C" }}>
       {/* Scene display */}
-      <div className="flex-1 relative overflow-hidden">
+      <div className="flex-1 min-h-0 relative overflow-hidden">
         {sceneIdx === 0  && <Scene01 tick={tick} />}
         {sceneIdx === 1  && <Scene02 tick={tick} />}
         {sceneIdx === 2  && <Scene03 tick={tick} />}
@@ -903,16 +903,16 @@ export default function ProductDemoPlayer({ onCTA, jumpToScene }: ProductDemoPla
         {sceneIdx === 10 && <Scene17 tick={tick} onCTA={onCTA} />}
 
         {/* Scene label top-left */}
-        <div className="absolute top-3 left-3 flex items-center gap-1.5 pointer-events-none" aria-hidden="true">
+        <div className="absolute top-3 left-3 right-14 sm:right-auto flex items-center gap-1.5 pointer-events-none" aria-hidden="true">
           <span className="w-1.5 h-1.5 rounded-full animate-pulse" style={{ background: "#0E4778" }}/>
-          <span className="text-[9px] font-mono font-medium" style={{ color: "rgba(255,255,255,0.4)" }}>
+          <span className="truncate text-[9px] font-mono font-medium" style={{ color: "rgba(255,255,255,0.4)" }}>
             {String(sceneIdx + 1).padStart(2, "0")} / {SCENES.length} — {SCENES[sceneIdx].title}
           </span>
         </div>
       </div>
 
       {/* Controls */}
-      <div style={{ background: "#06182E", borderTop: "1px solid rgba(255,255,255,0.06)", padding: "10px 14px" }}>
+      <div className="demo-player-controls" style={{ background: "#06182E", borderTop: "1px solid rgba(255,255,255,0.06)", padding: "10px 14px" }}>
         {/* Progress */}
         <div className="relative w-full h-1 rounded-full mb-2.5 cursor-pointer group"
           style={{ background: "rgba(255,255,255,0.1)" }}
@@ -934,7 +934,7 @@ export default function ProductDemoPlayer({ onCTA, jumpToScene }: ProductDemoPla
         </div>
 
         <div className="flex items-center justify-between">
-          <div className="flex items-center gap-2.5">
+          <div className="flex min-w-0 items-center gap-2 sm:gap-2.5">
             {/* Prev */}
             <button onClick={() => goToScene(Math.max(0, sceneIdx - 1))}
               aria-label="Previous scene"
@@ -959,7 +959,7 @@ export default function ProductDemoPlayer({ onCTA, jumpToScene }: ProductDemoPla
               <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M4 3l6 4-6 4V3z" fill="currentColor"/><rect x="10.5" y="3" width="1.5" height="8" rx="0.75" fill="currentColor"/></svg>
             </button>
             {/* Time */}
-            <span className="text-[10px] font-mono" style={{ color: "rgba(255,255,255,0.35)" }}>
+            <span className="whitespace-nowrap text-[9px] sm:text-[10px] font-mono" style={{ color: "rgba(255,255,255,0.35)" }}>
               {formatT(cumulativeStart + tick)} / {formatT(TOTAL)}
             </span>
           </div>
@@ -980,6 +980,9 @@ export default function ProductDemoPlayer({ onCTA, jumpToScene }: ProductDemoPla
       </div>
 
       <style>{`
+        .demo-player-controls {
+          padding-bottom: max(10px, env(safe-area-inset-bottom)) !important;
+        }
         @keyframes fadeInUp {
           from { opacity: 0; transform: translateY(8px); }
           to   { opacity: 1; transform: translateY(0); }
