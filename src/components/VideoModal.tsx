@@ -232,7 +232,7 @@ export default function VideoModal({
       role="dialog"
       aria-modal="true"
       aria-label="Hominode product demo video"
-      className="fixed inset-0 z-[2000] flex items-center justify-center p-4 sm:p-6"
+      className="video-modal-overlay fixed inset-0 z-[2000] flex items-center justify-center p-4 sm:p-6"
       style={{
         background: "rgba(0,0,0,0.88)",
         backdropFilter: "blur(12px)",
@@ -245,7 +245,7 @@ export default function VideoModal({
       {/* Modal container */}
       <div
         ref={containerRef}
-        className="relative w-full max-w-5xl"
+        className="video-modal-container relative w-full max-w-5xl"
         style={{ animation: "slide-up-modal 0.25s cubic-bezier(0.16,1,0.3,1) forwards" }}
         onMouseMove={hasRealVideo ? resetHideTimer : undefined}
       >
@@ -254,7 +254,7 @@ export default function VideoModal({
           ref={closeBtnRef}
           onClick={onClose}
           aria-label="Close video modal"
-          className="absolute -top-10 right-0 z-10 flex items-center gap-1.5 text-sm font-medium transition-opacity duration-150 hover:opacity-100 opacity-70 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-black"
+          className="video-modal-close absolute -top-10 right-0 z-30 flex items-center gap-1.5 text-sm font-medium transition-opacity duration-150 hover:opacity-100 opacity-80 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-black"
           style={{ color: "#fff" }}
         >
           <span>Close</span>
@@ -266,7 +266,7 @@ export default function VideoModal({
         {/* Chapter badge */}
         {activeChapterLabel && (
           <div
-            className="absolute -top-10 left-0 flex items-center gap-2 text-xs font-medium"
+            className="video-modal-chapter absolute -top-10 left-0 flex items-center gap-2 text-xs font-medium"
             style={{ color: "rgba(255,255,255,0.7)" }}
             aria-live="polite"
           >
@@ -282,7 +282,7 @@ export default function VideoModal({
 
         {/* Video / demo area */}
         <div
-          className="relative overflow-hidden"
+          className="video-modal-stage relative overflow-hidden"
           style={{
             borderRadius: "16px",
             background: "#060D1F",
@@ -474,7 +474,7 @@ export default function VideoModal({
 
         {/* Keyboard hint */}
         <div
-          className="mt-3 flex items-center justify-center gap-4 text-[11px]"
+          className="video-modal-hint mt-3 flex items-center justify-center gap-4 text-[11px]"
           style={{ color: "rgba(255,255,255,0.35)" }}
           aria-hidden="true"
         >
@@ -499,6 +499,54 @@ export default function VideoModal({
         @keyframes slide-up-modal {
           from { opacity: 0; transform: translateY(20px) scale(0.98); }
           to   { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        @media (max-width: 640px) {
+          .video-modal-overlay {
+            align-items: center !important;
+            padding:
+              max(10px, env(safe-area-inset-top))
+              10px
+              max(10px, env(safe-area-inset-bottom)) !important;
+          }
+
+          .video-modal-container {
+            width: 100% !important;
+            max-width: 430px !important;
+          }
+
+          .video-modal-stage {
+            aspect-ratio: auto !important;
+            height: min(72svh, 620px) !important;
+            min-height: 500px;
+            max-height: calc(100svh - 86px);
+            border-radius: 16px !important;
+          }
+
+          .video-modal-close {
+            position: fixed !important;
+            top: max(12px, env(safe-area-inset-top)) !important;
+            right: 12px !important;
+            background: rgba(6, 24, 46, 0.88);
+            border: 1px solid rgba(255,255,255,0.18);
+            border-radius: 999px;
+            padding: 9px 12px;
+            opacity: 1 !important;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+          }
+
+          .video-modal-chapter,
+          .video-modal-hint {
+            display: none !important;
+          }
+        }
+
+        @media (max-width: 380px) {
+          .video-modal-stage {
+            min-height: 470px;
+            height: min(70svh, 570px) !important;
+          }
         }
         @media (prefers-reduced-motion: reduce) {
           [style*="fade-in-modal"],
