@@ -90,6 +90,9 @@ function Scene01({ tick }: { tick: number }) {
     },
   ];
 
+  const showIntro = tick < 1.55;
+  const showApps = tick >= 1.1;
+
   return (
     <SceneWrap bg="linear-gradient(135deg, #030A1B 0%, #061C4C 55%, #0E4778 100%)">
       <div
@@ -97,35 +100,52 @@ function Scene01({ tick }: { tick: number }) {
         aria-hidden="true"
         style={{
           background:
-            "radial-gradient(circle at 20% 35%, rgba(58,166,200,0.16), transparent 28%), radial-gradient(circle at 82% 30%, rgba(20,184,166,0.12), transparent 26%)",
+            "radial-gradient(circle at 22% 35%, rgba(58,166,200,0.16), transparent 28%), radial-gradient(circle at 80% 28%, rgba(20,184,166,0.12), transparent 26%)",
         }}
       />
 
-      <div className="w-full max-w-2xl flex flex-col items-center text-center">
-        <div
-          className="flex items-center gap-2 mb-3"
-          style={{ opacity: tick > 0 ? 1 : 0, transition: "opacity 0.35s ease" }}
-        >
-          <img src="/logo.png" alt="" className="w-8 h-8 object-contain" />
-          <span className="text-sm font-bold tracking-wide text-white">HOMINODE</span>
+      <div
+        className="absolute inset-0 flex flex-col items-center justify-center text-center px-6 transition-all duration-500"
+        style={{
+          opacity: showIntro ? 1 : 0,
+          transform: showIntro ? "scale(1)" : "scale(0.94) translateY(-10px)",
+          pointerEvents: "none",
+        }}
+      >
+        <img
+          src="/hominode-mark.svg"
+          alt=""
+          className="w-20 h-20 sm:w-24 sm:h-24 object-contain mb-3"
+          style={{ filter: "drop-shadow(0 0 20px rgba(58,166,200,0.32))" }}
+        />
+        <h1 className="text-3xl sm:text-4xl font-bold text-white tracking-tight">
+          HOMINODE
+        </h1>
+        <p className="text-base sm:text-lg text-white/60 mt-1">Smart place. Better lives.</p>
+      </div>
+
+      <div
+        className="w-full max-w-2xl flex flex-col items-center text-center transition-all duration-500"
+        style={{
+          opacity: showApps ? 1 : 0,
+          transform: showApps ? "translateY(0)" : "translateY(14px)",
+        }}
+      >
+        <div className="flex items-center gap-2 mb-2">
+          <img src="/hominode-mark.svg" alt="" className="w-7 h-7 object-contain" />
+          <span className="text-xs font-bold tracking-wide text-white/80">HOMINODE</span>
         </div>
 
-        <h1
-          className="text-xl sm:text-2xl font-bold text-white mb-1"
-          style={{ opacity: tick > 0.2 ? 1 : 0, transition: "opacity 0.35s ease" }}
-        >
+        <h2 className="text-lg sm:text-xl font-bold text-white mb-1">
           Three purpose-built mobile apps.
-        </h1>
-        <p
-          className="text-xs sm:text-sm text-white/55 mb-4"
-          style={{ opacity: tick > 0.4 ? 1 : 0, transition: "opacity 0.35s ease" }}
-        >
-          Resident · Admin · Security — one connected Hominode platform
+        </h2>
+        <p className="text-[11px] sm:text-xs text-white/50 mb-3">
+          Resident · Admin · Security — one connected platform
         </p>
 
         <div className="flex items-end justify-center gap-3 sm:gap-5">
           {apps.map((app, i) => {
-            const visible = tick > 0.45 + i * 0.25;
+            const visible = tick > 1.2 + i * 0.18;
             const middle = i === 1;
             return (
               <div
@@ -134,14 +154,14 @@ function Scene01({ tick }: { tick: number }) {
                 style={{
                   opacity: visible ? 1 : 0,
                   transform: visible
-                    ? `translateY(${middle ? "-6px" : "0"}) scale(${middle ? 1.05 : 0.96})`
-                    : "translateY(18px) scale(0.92)",
+                    ? `translateY(${middle ? "-5px" : "0"}) scale(${middle ? 1.04 : 0.96})`
+                    : "translateY(16px) scale(0.92)",
                 }}
               >
                 <div
-                  className="w-[92px] sm:w-[112px] h-[184px] sm:h-[216px] rounded-[22px] sm:rounded-[26px] p-[4px]"
+                  className="w-[92px] sm:w-[110px] h-[176px] sm:h-[206px] rounded-[22px] sm:rounded-[26px] p-[4px]"
                   style={{
-                    background: "linear-gradient(160deg,rgba(255,255,255,0.42),rgba(255,255,255,0.08))",
+                    background: "linear-gradient(160deg,rgba(255,255,255,0.40),rgba(255,255,255,0.08))",
                     boxShadow: middle
                       ? "0 18px 44px rgba(0,0,0,0.42)"
                       : "0 12px 32px rgba(0,0,0,0.32)",
@@ -188,11 +208,11 @@ function Scene01({ tick }: { tick: number }) {
                             className="rounded-lg px-2 py-1.5 text-left transition-all"
                             style={{
                               background:
-                                tick > 1.2 + rowIndex * 0.25
+                                tick > 1.7 + rowIndex * 0.18
                                   ? `${app.accent}16`
                                   : "rgba(255,255,255,0.04)",
                               border:
-                                tick > 1.2 + rowIndex * 0.25
+                                tick > 1.7 + rowIndex * 0.18
                                   ? `1px solid ${app.accent}28`
                                   : "1px solid rgba(255,255,255,0.04)",
                             }}
@@ -222,7 +242,7 @@ function Scene01({ tick }: { tick: number }) {
         </div>
       </div>
 
-      <SceneLabel text="Resident. Admin. Security. One Hominode ecosystem." />
+      <SceneLabel text={showIntro ? "Smart place. Better lives." : "Resident. Admin. Security. One Hominode ecosystem."} />
     </SceneWrap>
   );
 }
@@ -782,7 +802,7 @@ function Scene17({ tick, onCTA }: { tick: number; onCTA?: () => void }) {
         style={{ background: "radial-gradient(ellipse 60% 42% at 50% 50%, rgba(58,166,200,0.22) 0%, transparent 70%)" }} />
       <div className="flex flex-col items-center gap-5 text-center"
         style={{ opacity: tick > 0 ? 1 : 0, transition: "opacity 0.8s ease" }}>
-        <img src="/logo.png" alt="" className="w-16 h-16 object-contain" style={{ filter:"drop-shadow(0 0 20px rgba(58,166,200,0.35))" }} />
+        <img src="/hominode-mark.svg" alt="" className="w-16 h-16 object-contain" style={{ filter:"drop-shadow(0 0 20px rgba(58,166,200,0.35))" }} />
         <div>
           <h2 className="text-3xl sm:text-4xl font-bold text-white">HOMINODE</h2>
           <p className="text-white/55 mt-1 text-sm">Smart place. Better lives.</p>
