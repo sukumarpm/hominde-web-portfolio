@@ -14,6 +14,7 @@ import Analytics from "./sections/Analytics";
 import Automation from "./sections/Automation";
 import ContactSection from "./sections/ContactSection";
 import CorePlatform from "./sections/CorePlatform";
+import DemoCommunity from "./sections/DemoCommunity";
 import Ecosystem from "./sections/Ecosystem";
 import FAQ from "./sections/FAQ";
 import FinalCTA from "./sections/FinalCTA";
@@ -93,7 +94,10 @@ export default function App() {
         {/* 4 — Trust bar */}
         <TrustBar />
 
-        {/* 5 — Problem → Solution */}
+        {/* 5 — Green Wave demo community */}
+        <DemoCommunity />
+
+        {/* 6 — Problem → Solution */}
         <ProblemSolution />
 
         {/* 6 — Core platform overview */}
