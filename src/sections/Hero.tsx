@@ -58,7 +58,7 @@ function DashboardPreview() {
           <div className="flex items-center gap-1.5 px-2 mb-3">
             <div
               className="w-5 h-5 rounded-md flex items-center justify-center"
-              style={{ background: "linear-gradient(135deg,#2563EB,#6366F1)" }}
+              style={{ background: "linear-gradient(135deg,#0E4778,#3AA6C8)" }}
             >
               <svg width="10" height="10" viewBox="0 0 18 18" fill="none">
                 <circle cx="9" cy="9" r="3" fill="white" />
@@ -88,8 +88,8 @@ function DashboardPreview() {
               key={item.lb}
               className="flex items-center gap-1.5 px-2 py-1.5 rounded-lg text-[9px]"
               style={{
-                background: item.a ? "rgba(37,99,235,0.2)" : "transparent",
-                color: item.a ? "#60A5FA" : "rgba(255,255,255,0.3)",
+                background: item.a ? "rgba(14,71,120,0.2)" : "transparent",
+                color: item.a ? "#72C5DD" : "rgba(255,255,255,0.3)",
                 fontWeight: item.a ? "600" : "400",
               }}
             >
@@ -102,12 +102,12 @@ function DashboardPreview() {
         {/* Main */}
         <div className="flex-1 p-3 overflow-hidden" style={{ background: "#080F22" }}>
           <p className="text-[9px] font-semibold mb-2" style={{ color: "rgba(255,255,255,0.5)", fontFamily: "Instrument Sans,sans-serif" }}>
-            Overview — Sunrise Residency
+            Overview — Green Wave Residences
           </p>
           {/* KPI row */}
           <div className="grid grid-cols-4 gap-1.5 mb-2">
             {[
-              { label: "Residents",   value: "284",    c: "#2563EB", icon: "👤" },
+              { label: "Residents",   value: "284",    c: "#0E4778", icon: "👤" },
               { label: "Visitors",    value: "12",     c: "#059669", icon: "🚗" },
               { label: "Maintenance", value: "₹1.2L",  c: "#7C3AED", icon: "💳" },
               { label: "Complaints",  value: "7",      c: "#D97706", icon: "🔧" },
@@ -145,8 +145,8 @@ function DashboardPreview() {
                     style={{
                       height: `${h}%`,
                       background: i === 5
-                        ? "linear-gradient(180deg,#60A5FA,#2563EB)"
-                        : "rgba(37,99,235,0.25)",
+                        ? "linear-gradient(180deg,#72C5DD,#0E4778)"
+                        : "rgba(14,71,120,0.25)",
                     }}
                   />
                 ))}
@@ -159,7 +159,7 @@ function DashboardPreview() {
               <p className="text-[7px] mb-1.5" style={{ color: "rgba(255,255,255,0.3)" }}>Live Activity</p>
               {[
                 { text: "Visitor approved", dot: "#059669" },
-                { text: "Bill sent: 204B",   dot: "#2563EB" },
+                { text: "Bill sent: 204B",   dot: "#0E4778" },
                 { text: "Complaint: 101A",   dot: "#D97706" },
               ].map((a, i) => (
                 <div key={i} className="flex items-center gap-1 mb-1">
@@ -206,9 +206,9 @@ function VideoPreviewCard({ onPlay }: { onPlay: () => void }) {
       style={{
         borderRadius: 24,
         overflow: "hidden",
-        border: "1.5px solid rgba(37,99,235,0.25)",
+        border: "1.5px solid rgba(14,71,120,0.25)",
         boxShadow: hovered
-          ? "0 32px 80px rgba(0,0,0,0.45), 0 0 0 1px rgba(37,99,235,0.3), 0 8px 32px rgba(37,99,235,0.15)"
+          ? "0 32px 80px rgba(0,0,0,0.45), 0 0 0 1px rgba(14,71,120,0.3), 0 8px 32px rgba(14,71,120,0.15)"
           : "0 24px 64px rgba(0,0,0,0.35), 0 0 0 1px rgba(255,255,255,0.06)",
         transition: "box-shadow 0.3s ease",
         aspectRatio: "16/9",
@@ -244,7 +244,7 @@ function VideoPreviewCard({ onPlay }: { onPlay: () => void }) {
         <div
           className="absolute inset-0 pointer-events-none rounded-full"
           style={{
-            background: "radial-gradient(ellipse 50% 40% at 50% 50%, rgba(37,99,235,0.18) 0%, transparent 70%)",
+            background: "radial-gradient(ellipse 50% 40% at 50% 50%, rgba(14,71,120,0.18) 0%, transparent 70%)",
             opacity: hovered ? 1 : 0.6,
             transition: "opacity 0.3s ease",
           }}
@@ -267,7 +267,7 @@ function VideoPreviewCard({ onPlay }: { onPlay: () => void }) {
               WebkitBackdropFilter: "blur(12px)",
               border: "2px solid rgba(255,255,255,0.25)",
               boxShadow: hovered
-                ? "0 8px 32px rgba(37,99,235,0.5), 0 0 0 8px rgba(37,99,235,0.12)"
+                ? "0 8px 32px rgba(14,71,120,0.5), 0 0 0 8px rgba(14,71,120,0.12)"
                 : "0 4px 20px rgba(0,0,0,0.4)",
               transition: "box-shadow 0.3s ease",
             }}
@@ -301,15 +301,15 @@ function VideoPreviewCard({ onPlay }: { onPlay: () => void }) {
           style={{
             background: "rgba(6,13,31,0.8)",
             backdropFilter: "blur(8px)",
-            border: "1px solid rgba(37,99,235,0.3)",
-            color: "#60A5FA",
+            border: "1px solid rgba(14,71,120,0.3)",
+            color: "#72C5DD",
           }}
         >
           <span
             className="w-1.5 h-1.5 rounded-full animate-pulse"
-            style={{ background: "#3B82F6" }}
+            style={{ background: "#3AA6C8" }}
           />
-          Live Product Demo
+          Green Wave Product Demo
         </div>
         <div
           className="px-3 py-1.5 rounded-full text-[10px] font-medium"
@@ -320,7 +320,7 @@ function VideoPreviewCard({ onPlay }: { onPlay: () => void }) {
             color: "rgba(255,255,255,0.6)",
           }}
         >
-          Resident + Admin + Security
+          Green Wave · Resident + Admin + Security
         </div>
       </div>
     </div>
@@ -362,7 +362,7 @@ export default function Hero({ onContact }: HeroProps) {
         <div
           className="absolute top-0 left-1/4 w-[500px] h-[500px] pointer-events-none"
           style={{
-            background: "radial-gradient(circle, rgba(37,99,235,0.12) 0%, transparent 70%)",
+            background: "radial-gradient(circle, rgba(14,71,120,0.12) 0%, transparent 70%)",
             filter: "blur(80px)",
           }}
           aria-hidden="true"
@@ -370,7 +370,7 @@ export default function Hero({ onContact }: HeroProps) {
         <div
           className="absolute bottom-0 right-1/4 w-[400px] h-[400px] pointer-events-none"
           style={{
-            background: "radial-gradient(circle, rgba(99,102,241,0.1) 0%, transparent 70%)",
+            background: "radial-gradient(circle, rgba(58,166,200,0.1) 0%, transparent 70%)",
             filter: "blur(80px)",
           }}
           aria-hidden="true"
@@ -434,7 +434,7 @@ export default function Hero({ onContact }: HeroProps) {
                 <button
                   onClick={onContact}
                   className="flex items-center justify-center gap-2.5 px-7 py-3.5 rounded-xl text-base font-semibold text-white btn-primary focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400 focus-visible:ring-offset-2"
-                  style={{ background: "linear-gradient(135deg,#2563EB,#1D4ED8)" }}
+                  style={{ background: "linear-gradient(135deg,#0E4778,#061C4C)" }}
                 >
                   Book a Demo
                   <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
