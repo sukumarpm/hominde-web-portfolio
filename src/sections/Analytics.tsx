@@ -47,7 +47,7 @@ export default function Analytics() {
   return (
     <section
       className="py-28 px-6 section-fade theme-transition"
-      style={{ background:"linear-gradient(180deg,#F7FAFC 0%,#EEF7FA 100%)" }}
+      style={{ background:"var(--section-shade)" }}
     >
       <div className="max-w-6xl mx-auto">
         {/* Heading */}
