@@ -46,6 +46,7 @@ function DonutChart({ value, color, size=64 }: { value:number; color:string; siz
 export default function Analytics() {
   return (
     <section
+      id="analytics"
       className="py-28 px-6 section-fade theme-transition"
       style={{ background:"var(--section-shade)" }}
     >
