@@ -182,7 +182,7 @@ function SecurityAppMockup() {
 export default function SecurityPlatform() {
   return (
     <section
-      id="security"
+      id="security-platform"
       className="py-28 px-6 section-fade theme-transition"
       style={{ background: "var(--bg-1)" }}
     >
