@@ -286,11 +286,11 @@ function VideoPreviewCard({ onPlay }: { onPlay: () => void }) {
 
       {/* Bottom badges */}
       <div
-        className="absolute bottom-4 left-4 right-4 flex items-center justify-between pointer-events-none"
+        className="absolute bottom-3 left-3 right-3 sm:bottom-4 sm:left-4 sm:right-4 flex items-center justify-center sm:justify-between pointer-events-none"
         aria-hidden="true"
       >
         <div
-          className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[11px] font-semibold"
+          className="flex items-center gap-1.5 px-2.5 py-1.5 sm:px-3 rounded-full text-[10px] sm:text-[11px] font-semibold"
           style={{
             background: "rgba(6,13,31,0.8)",
             backdropFilter: "blur(8px)",
@@ -305,7 +305,7 @@ function VideoPreviewCard({ onPlay }: { onPlay: () => void }) {
           Green Wave Product Demo
         </div>
         <div
-          className="px-3 py-1.5 rounded-full text-[10px] font-medium"
+          className="hidden sm:block px-3 py-1.5 rounded-full text-[10px] font-medium"
           style={{
             background: "rgba(6,13,31,0.8)",
             backdropFilter: "blur(8px)",
@@ -362,7 +362,7 @@ export default function Hero({ onContact }: HeroProps) {
       <section
         ref={ref}
         id="hero"
-        className="relative pt-24 pb-16 px-6 overflow-hidden theme-transition"
+        className="relative pt-20 sm:pt-24 pb-12 sm:pb-16 px-4 sm:px-6 overflow-hidden theme-transition"
         style={{ background: "var(--hero-shade)" }}
         aria-labelledby="hero-heading"
       >
@@ -387,7 +387,7 @@ export default function Hero({ onContact }: HeroProps) {
 
         <div className="relative z-10 max-w-6xl mx-auto w-full">
           {/* ── Split layout ── */}
-          <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-16">
+          <div className="flex flex-col lg:flex-row items-center gap-9 sm:gap-12 lg:gap-16">
 
             {/* ── LEFT: Content ── */}
             <div className="flex-1 max-w-xl lg:max-w-none lg:flex-[0_0_44%]">
