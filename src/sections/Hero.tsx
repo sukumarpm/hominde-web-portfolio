@@ -56,18 +56,11 @@ function DashboardPreview() {
           style={{ background: "#0A1425", borderRight: "1px solid rgba(255,255,255,0.04)" }}
         >
           <div className="flex items-center gap-1.5 px-2 mb-3">
-            <div
-              className="w-5 h-5 rounded-md flex items-center justify-center"
-              style={{ background: "linear-gradient(135deg,#0E4778,#3AA6C8)" }}
-            >
-              <svg width="10" height="10" viewBox="0 0 18 18" fill="none">
-                <circle cx="9" cy="9" r="3" fill="white" />
-                <circle cx="9" cy="2" r="1.5" fill="white" opacity="0.7" />
-                <circle cx="9" cy="16" r="1.5" fill="white" opacity="0.7" />
-                <circle cx="2" cy="9" r="1.5" fill="white" opacity="0.7" />
-                <circle cx="16" cy="9" r="1.5" fill="white" opacity="0.7" />
-              </svg>
-            </div>
+            <img
+              src="/hominode-mark.svg"
+              alt=""
+              className="w-5 h-5 object-contain"
+            />
             <span
               className="text-[9px] font-bold"
               style={{ color: "rgba(255,255,255,0.7)", fontFamily: "Instrument Sans,sans-serif" }}
@@ -330,6 +323,7 @@ function VideoPreviewCard({ onPlay }: { onPlay: () => void }) {
 /* ── Main Hero export ── */
 export default function Hero({ onContact }: HeroProps) {
   const [modalOpen, setModalOpen] = useState(false);
+  const [requestedScene, setRequestedScene] = useState<number | undefined>(undefined);
   const ref = useRef<HTMLElement>(null);
 
   /* scroll-reveal for section-fade children */
@@ -345,7 +339,22 @@ export default function Hero({ onContact }: HeroProps) {
     return () => observer.disconnect();
   }, []);
 
-  const openModal  = () => setModalOpen(true);
+  useEffect(() => {
+    const playChapter = (event: Event) => {
+      const chapterId = (event as CustomEvent<{ chapterId?: number }>).detail?.chapterId;
+      if (!chapterId) return;
+      setRequestedScene(chapterId + 1);
+      setModalOpen(true);
+    };
+
+    window.addEventListener("hominode:playDemoChapter", playChapter);
+    return () => window.removeEventListener("hominode:playDemoChapter", playChapter);
+  }, []);
+
+  const openModal = () => {
+    setRequestedScene(undefined);
+    setModalOpen(true);
+  };
   const closeModal = () => setModalOpen(false);
 
   return (
@@ -442,7 +451,7 @@ export default function Hero({ onContact }: HeroProps) {
                   </svg>
                 </button>
                 <button
-                  onClick={() => document.querySelector("#apps")?.scrollIntoView({ behavior: "smooth" })}
+                  onClick={() => document.querySelector("#quick-features")?.scrollIntoView({ behavior: "smooth" })}
                   className="flex items-center justify-center gap-2.5 px-7 py-3.5 rounded-xl text-base font-medium transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400 theme-transition"
                   style={{
                     background: "var(--surface)",
@@ -554,6 +563,7 @@ export default function Hero({ onContact }: HeroProps) {
         src={HOMINODE_DEMO_VIDEO}
       >
         <ProductDemoPlayer
+          jumpToScene={requestedScene}
           onCTA={() => {
             closeModal();
             onContact();
