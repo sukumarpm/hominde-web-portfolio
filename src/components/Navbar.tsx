@@ -14,7 +14,7 @@ function Logo() {
   return (
     <a href="#" className="flex items-center gap-2.5 group focus:outline-none" aria-label="Hominode home">
       <img
-        src="/logo.png"
+        src="/hominode-mark.svg"
         alt="Hominode Logo"
         className="w-8 h-8 object-contain transition-transform duration-200 group-hover:scale-105 flex-shrink-0"
       />
