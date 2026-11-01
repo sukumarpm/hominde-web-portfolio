@@ -275,3 +275,40 @@ h1,h2,h3,h4,h5 { font-family: 'Instrument Sans', sans-serif; }
   .btn-primary  { transition: none !important; }
   .modal-overlay { animation: none !important; }
 }
+
+/* Public Resident account deletion — intentionally static/email-based. */
+.deletion-page { min-height: 100vh; padding: 28px 16px 64px; background: linear-gradient(155deg, #eef6fc 0%, #f8fafc 55%, #eef2f8 100%); color: #12233e; font-family: "Inter", sans-serif; }
+.deletion-layout { max-width: 800px; margin: 0 auto; }
+.deletion-header { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 0 0 28px; }
+.deletion-brand { display: inline-flex; gap: 12px; align-items: center; color: #0e4778; font-size: 17px; font-weight: 700; letter-spacing: -.025em; font-family: "Instrument Sans", sans-serif; text-decoration: none; }
+.deletion-brand-mark { display: inline-flex; width: 48px; height: 48px; flex-shrink: 0; align-items: center; justify-content: center; border-radius: 12px; overflow: hidden; background: #04152f; box-shadow: 0 3px 12px rgba(6, 28, 76, .16); }
+.deletion-brand-mark img { display: block; width: 100%; height: 100%; object-fit: cover; transform: scale(1.75); }
+.deletion-home-link { color: #315a82; text-decoration: none; font-weight: 650; font-size: 14px; }
+.deletion-card { background: white; border: 1px solid #dfe8f2; border-radius: 24px; box-shadow: 0 20px 60px rgba(12,42,74,.08); padding: clamp(24px,5vw,52px); }
+.deletion-eyebrow { color: #17608f; font-size: 12px; font-weight: 800; letter-spacing: .17em; margin: 0 0 12px; }
+.deletion-card h1 { color: #0c2645; font-size: clamp(30px, 5vw, 44px); letter-spacing: -.045em; line-height: 1.12; margin: 0 0 20px; font-weight: 800; }
+.deletion-card h2 { color: #102c50; font-size: 19px; font-weight: 750; margin: 28px 0 14px; }
+.deletion-card p { line-height: 1.7; }
+.deletion-intro { color: #465d77; margin: 0 0 22px; font-size: 15px; }
+.deletion-contact { background: #f2f7fd; border: 1px solid #d7e7f6; padding: 22px; border-radius: 16px; }
+.deletion-contact-label { text-transform: uppercase; letter-spacing: .09em; color: #58738d; font-size: 12px; font-weight: 800; margin: 0 0 7px; }
+.deletion-email { color: #0e4778; font-size: clamp(16px, 3vw, 21px); font-weight: 800; overflow-wrap: anywhere; }
+.deletion-actions { display: flex; flex-wrap: wrap; gap: 10px; margin: 18px 0 0; }
+.deletion-primary-action, .deletion-secondary-action { display: inline-flex; min-height: 44px; align-items: center; justify-content: center; border-radius: 11px; padding: 11px 17px; font: inherit; font-size: 14px; font-weight: 750; text-decoration: none; cursor: pointer; }
+.deletion-primary-action { background: #0e4778; color: #fff !important; border: 1px solid #0e4778; }
+.deletion-secondary-action { background: #fff; color: #0e4778; border: 1px solid #a9c6e2; }
+.deletion-primary-action:hover { background: #092e54; }
+.deletion-secondary-action:hover { background: #e9f3fc; }
+.deletion-primary-action:focus-visible, .deletion-secondary-action:focus-visible, .deletion-page a:focus-visible { outline: 3px solid #377fc5; outline-offset: 3px; }
+.deletion-feedback { color: #174e76; min-height: 1.3em; font-size: 13px; margin: 10px 0 0; }
+.deletion-small { color: #50677f; margin: 4px 0 0; font-size: 13px; }
+.deletion-steps { display: grid; gap: 13px; margin: 0; padding-left: 24px; color: #465d77; font-size: 15px; line-height: 1.65; }
+.deletion-steps strong { color: #162e4d; }
+.deletion-steps li { padding-left: 4px; }
+.deletion-note { background: #f8fafc; border: 1px solid #e0e8f2; border-radius: 15px; margin-top: 30px; padding: 2px 20px 18px; }
+.deletion-note p { font-size: 14px; color: #465d77; margin: 0; }
+.deletion-note a, .deletion-links a { color: #0e4778; font-weight: 700; }
+.deletion-safety { margin: 24px 0; font-size: 14px; color: #50677f; }
+.deletion-safety strong { color: #213b59; }
+.deletion-links { display: flex; flex-wrap: wrap; gap: 12px 22px; border-top: 1px solid #e2e8f0; padding-top: 22px; font-size: 13px; }
+@media (max-width: 500px) { .deletion-page { padding: 18px 12px 32px; } .deletion-header { padding: 0 8px 20px; } .deletion-card { border-radius: 16px; } .deletion-actions > * { width: 100%; } .deletion-contact { padding: 18px 16px; } }

@@ -27,7 +27,7 @@ const CONTACT_INFO = [
     ),
     label: "Email us",
     value: "hominodecare@gmail.com",
-    href: "mailto:hominodecare@gmail.com",
+    href: undefined,
   },
   {
     icon: (

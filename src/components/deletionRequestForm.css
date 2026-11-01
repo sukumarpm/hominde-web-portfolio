@@ -1,0 +1,81 @@
+.deletion-request-form { margin: 28px 0; padding: clamp(20px, 4vw, 32px); border: 1px solid #dae4ed; border-radius: 18px; background: #fff; color: #12233e; font-family: 'Inter', sans-serif; box-shadow: 0 8px 30px rgba(6,28,76,.06); }
+.deletion-request-form h2 { margin: 0 0 10px; font-family: 'Instrument Sans', sans-serif; font-size: clamp(24px,3vw,30px); color: #0e4778; }
+.deletion-request-form p { line-height: 1.65; margin: 0 0 18px; }
+.deletion-request-form form { display: grid; gap: 16px; }
+.deletion-request-form label { font-size: 14px; font-weight: 600; display: grid; gap: 7px; }
+.deletion-request-form label>input:not([type='checkbox']) { display: block; width: 100%; padding: 12px 14px; min-height: 46px; border: 1px solid #b9c9d8; border-radius: 10px; background: #fff; color: #13243a; font-size: 16px; font-weight: 400; }
+.deletion-request-form input:focus-visible, .deletion-request-form button:focus-visible { outline: 3px solid #72bee6; outline-offset: 2px; }
+.deletion-request-form .deletion-confirm { display: flex; align-items: flex-start; gap: 12px; line-height: 1.5; font-weight: 400; }
+.deletion-request-form .deletion-confirm input { width: 19px; height: 19px; flex: 0 0 auto; margin-top: 2px; accent-color: #0e4778; }
+.deletion-request-form button { display: inline-flex; justify-content: center; align-items: center; padding: 13px 22px; border: 0; border-radius: 11px; background: #0e4778; color: #fff; font-weight: 700; font-size: 16px; cursor: pointer; }
+.deletion-request-form button:disabled { opacity: .58; cursor: not-allowed; }
+.deletion-request-form .deletion-form-footnote { margin: 18px 0 0; font-size: 13px; color: #57677a; }
+.deletion-request-form .deletion-form-error { color: #ac2727; margin: 0; font-size: 14px; }
+.deletion-request-form .deletion-honeypot { position: absolute !important; left: -99999px !important; width: 1px !important; height: 1px !important; overflow: hidden; }
+.deletion-request-form .deletion-ref { font-family: 'JetBrains Mono', monospace; overflow-wrap: anywhere; }
+.deletion-turnstile { min-height: 65px; }
+.deletion-form-success { border-color: #aad9c3; }
+
+/* Hominode Phase 2D.2: safe compact deletion form - START */
+/* No CSS size containment: preserve the original card and parent grid sizing. */
+.deletion-request-form { margin-block: 18px; padding: clamp(18px, 2vw, 24px); }
+.deletion-request-form h2 { margin-bottom: 8px; line-height: 1.25; }
+.deletion-request-form > p:first-of-type { margin-bottom: 14px; line-height: 1.5; }
+.deletion-request-form form { gap: 12px 16px; }
+/* Keep the required asterisk inline with the label text. */
+.deletion-request-form form > label:not(.deletion-confirm):not(.deletion-honeypot) {
+  display: block;
+  min-width: 0;
+  line-height: 1.4;
+}
+.deletion-request-form form > label > input:not([type='checkbox']) {
+  margin-top: 6px;
+  min-width: 0;
+  min-height: 42px;
+}
+.deletion-request-form .deletion-confirm { line-height: 1.45; }
+.deletion-request-form .deletion-form-footnote { margin-top: 12px; line-height: 1.5; }
+/* Use viewport media queries without changing the form's intrinsic width. */
+@media (min-width: 1100px) {
+  .deletion-request-form form { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .deletion-request-form form > label:nth-child(6),
+  .deletion-request-form form > .deletion-confirm,
+  .deletion-request-form form > .deletion-turnstile,
+  .deletion-request-form form > .deletion-form-error,
+  .deletion-request-form form > button { grid-column: 1 / -1; }
+  .deletion-request-form form > button { justify-self: start; min-width: 210px; }
+}
+/* Hominode Phase 2D.2: safe compact deletion form - END */
+
+/* Hominode Phase 2D.3: approved brand on the deletion request form */
+.deletion-request-form .deletion-form-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+  color: #0e4778;
+  font-family: 'Instrument Sans', sans-serif;
+  font-size: 16px;
+  font-weight: 750;
+  letter-spacing: -.02em;
+}
+.deletion-request-form .deletion-form-brand-icon {
+  display: inline-flex;
+  width: 40px;
+  height: 40px;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 40px;
+  overflow: hidden;
+  border-radius: 10px;
+  background: #04152f;
+}
+.deletion-request-form .deletion-form-brand-icon img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scale(1.5);
+}
+
+/* Phase 2D.4: follow-up number help text (no card/grid sizing changes) */
+.deletion-request-form .deletion-field-hint { display: block; margin-top: 6px; color: #57677a; font-size: 12px; font-weight: 400; line-height: 1.45; }

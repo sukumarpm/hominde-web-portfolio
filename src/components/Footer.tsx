@@ -41,6 +41,7 @@ const footerSections = [
     links: [
       { l: "Privacy Policy", href: "/policy" },
       { l: "Terms of Service", href: "/terms" },
+      { l: "Request Account Deletion", href: "/account-deletion" },
     ],
   },
 ];
@@ -97,11 +98,9 @@ export default function Footer({ onContact }: FooterProps) {
               className="flex items-center gap-2.5 mb-4 w-fit focus:outline-none"
               aria-label="Hominode home"
             >
-              <img
-                src="/hominode-mark.svg"
-                alt=""
-                className="w-8 h-8 object-contain flex-shrink-0"
-              />
+              <span className="inline-flex w-9 h-9 items-center justify-center overflow-hidden rounded-xl shrink-0" style={{ background: "#04152F" }} aria-hidden="true">
+        <img src="/logo.png" alt="" className="w-full h-full object-cover scale-150" />
+      </span>
               <span
                 className="text-base font-bold tracking-tight theme-transition"
                 style={{ fontFamily: "Instrument Sans,sans-serif", color: "var(--text-1)" }}

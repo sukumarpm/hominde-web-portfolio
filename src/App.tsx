@@ -33,6 +33,7 @@ import ResidentAccess from "./components/ResidentAccess";
 /* ── Legal components ── */
 import Policy from "./components/Policy";
 import Terms from "./components/Terms";
+import AccountDeletion from "./AccountDeletion";
 
 export default function App() {
   const [dark, setDark] = useState(false);
@@ -44,6 +45,7 @@ export default function App() {
   if (path === "/policy") return <Policy />;
   if (path === "/terms") return <Terms />;
   if (path === "/resident") return <ResidentAccess />;
+  if (path === "/account-deletion") return <AccountDeletion />;
 
   const openInquiry = () => setInquiryOpen(true);
   const closeInquiry = () => setInquiryOpen(false);

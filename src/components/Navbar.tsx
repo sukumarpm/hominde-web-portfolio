@@ -13,11 +13,9 @@ const navLinks = [
 function Logo() {
   return (
     <a href="#hero" className="flex items-center gap-2.5 group focus:outline-none" aria-label="Hominode home">
-      <img
-        src="/hominode-mark.svg"
-        alt="Hominode Logo"
-        className="w-8 h-8 object-contain transition-transform duration-200 group-hover:scale-105 flex-shrink-0"
-      />
+      <span className="inline-flex w-9 h-9 items-center justify-center overflow-hidden rounded-xl shrink-0" style={{ background: "#04152F" }} aria-hidden="true">
+        <img src="/logo.png" alt="" className="w-full h-full object-cover scale-150" />
+      </span>
       <span className="text-[17px] font-bold tracking-tight theme-transition" style={{ fontFamily: "Instrument Sans,sans-serif", color: "var(--text-1)" }}>
         HOMINODE
       </span>

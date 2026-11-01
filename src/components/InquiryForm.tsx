@@ -12,7 +12,7 @@
  *  - WCAG accessible: labels, aria-describedby, focus management
  */
 
-import { useRef, useState, type FormEvent } from "react";
+import { useEffect, useRef, useState, type FormEvent } from "react";
 
 /* ─── constants ─────────────────────────────────────────────────── */
 
@@ -77,6 +77,17 @@ type Status = "idle" | "sending" | "sent" | "error";
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 const PHONE_RE = /^[+\d][\d\s\-().]{6,19}$/;
+// Public configuration. Do not place Cloudflare secret or Gmail password in Vite.
+const CLIENT_INQUIRY_ENDPOINT = import.meta.env.VITE_INQUIRY_API_URL ||
+  "https://asia-southeast1-hominode-prod.cloudfunctions.net/submitPublicContactInquiry";
+const TURNSTILE_SITE_KEY = import.meta.env.VITE_TURNSTILE_SITE_KEY || "";
+type InquiryTurnstile = {
+  render: (node: HTMLElement, props: Record<string, unknown>) => string;
+  remove: (id: string) => void;
+  reset: (id: string) => void;
+};
+const getTurnstile = (): InquiryTurnstile | undefined =>
+  (window as Window & { turnstile?: InquiryTurnstile }).turnstile;
 
 function validate(data: FormData): FieldErrors {
   const e: FieldErrors = {};
@@ -172,7 +183,49 @@ export default function InquiryForm({ onSuccess, compact = false }: InquiryFormP
   const [status, setStatus] = useState<Status>("idle");
   const [errorMsg, setErrorMsg] = useState("");
   const firstRef = useRef<HTMLInputElement>(null);
+  const captchaContainer = useRef<HTMLDivElement>(null);
+  const captchaWidget = useRef<string | null>(null);
+  const [captchaToken, setCaptchaToken] = useState("");
+  const [inquiryReference, setInquiryReference] = useState("");
   const { onFocus, onBlur } = useFocusHandlers();
+
+  // The same widget script is shared by the homepage, modal and deletion page.
+  // Each form instance renders its own challenge, with the distinct client_inquiry action.
+  useEffect(() => {
+    if (!TURNSTILE_SITE_KEY || !captchaContainer.current) return;
+    let cancelled = false;
+    let attempts = 0;
+    let timer: ReturnType<typeof setTimeout> | undefined;
+    const render = () => {
+      if (cancelled || !captchaContainer.current) return;
+      const api = getTurnstile();
+      if (api) {
+        captchaWidget.current = api.render(captchaContainer.current, {
+          sitekey: TURNSTILE_SITE_KEY,
+          action: "client_inquiry",
+          callback: (token: string) => setCaptchaToken(token),
+          "expired-callback": () => setCaptchaToken(""),
+          "error-callback": () => setCaptchaToken(""),
+        });
+      } else if (attempts++ < 100) timer = setTimeout(render, 150);
+    };
+    if (!document.getElementById("hominode-turnstile-script")) {
+      const script = document.createElement("script");
+      script.id = "hominode-turnstile-script";
+      script.src = "https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit";
+      script.async = true;
+      script.defer = true;
+      document.head.appendChild(script);
+    }
+    render();
+    return () => {
+      cancelled = true;
+      if (timer) clearTimeout(timer);
+      const api = getTurnstile();
+      if (captchaWidget.current && api) api.remove(captchaWidget.current);
+      captchaWidget.current = null;
+    };
+  }, [status === "sent"]);
 
   /* field setters */
   const set = <K extends keyof FormData>(k: K) =>
@@ -225,53 +278,41 @@ export default function InquiryForm({ onSuccess, compact = false }: InquiryFormP
       message: form.message.trim() || "—",
     };
 
+    if (!captchaToken) {
+      setStatus("error");
+      setErrorMsg("Complete the human verification before submitting.");
+      return;
+    }
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 20000);
     try {
-      /* ── Primary: server-side API ── */
-      const res = await fetch("/api/inquiry", {
+      const res = await fetch(CLIENT_INQUIRY_ENDPOINT, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
+        body: JSON.stringify({ ...payload, website: form._hp, captchaToken }),
+        signal: controller.signal,
       });
-
-      if (!res.ok) {
-        const body = await res.json().catch(() => ({}));
-        throw new Error(body.message || `HTTP ${res.status}`);
+      const result: { status?: string; reference?: string; error?: string } = await res.json();
+      if (!res.ok || result.status !== "received" || !result.reference) {
+        throw new Error(result.error || "Your inquiry could not be submitted. Please retry.");
       }
-
+      setInquiryReference(result.reference);
       setStatus("sent");
-
     } catch (err) {
-      console.warn("[InquiryForm] API failed, using mailto fallback:", err);
-
-      /* ── Fallback: mailto ── */
-      const subject = encodeURIComponent(
-        `New Hominode Client Inquiry — ${payload.orgName || payload.name}`
-      );
-      const body = encodeURIComponent(
-        `NEW HOMINODE INQUIRY\n` +
-        `--------------------------------\n\n` +
-        `CLIENT DETAILS\n` +
-        `Name:          ${payload.name}\n` +
-        `Work Email:    ${payload.email}\n` +
-        `Phone:         ${payload.phone}\n` +
-        `Organisation:  ${payload.orgName}\n` +
-        `Community Type:${payload.communityType}\n` +
-        `Number of Units:${payload.unitCount}\n\n` +
-        `INTERESTED FEATURES\n${payload.features}\n\n` +
-        `MESSAGE\n${payload.message}\n\n` +
-        `--------------------------------\n` +
-        `Submitted from: Hominode Website\n` +
-        `Submission Date: ${new Date().toLocaleString("en-IN")}`
-      );
-      window.open(`mailto:hominodecare@gmail.com?subject=${subject}&body=${body}`);
-      setStatus("sent");
+      setStatus("error");
+      setErrorMsg(err instanceof Error && err.name !== "AbortError"
+        ? err.message : "Request timed out. Check your connection and retry.");
+      setCaptchaToken("");
+      if (captchaWidget.current) getTurnstile()?.reset(captchaWidget.current);
+    } finally {
+      clearTimeout(timeout);
     }
   };
 
   /* reset */
   const handleReset = () => {
     setForm({ name: "", email: "", phone: "", orgName: "", communityType: "", unitCount: "", features: [], message: "", _hp: "" });
-    setErrors({}); setTouch({}); setStatus("idle"); setErrorMsg("");
+    setErrors({}); setTouch({}); setStatus("idle"); setErrorMsg(""); setInquiryReference("");
     onSuccess?.();
   };
 
@@ -309,6 +350,9 @@ export default function InquiryForm({ onSuccess, compact = false }: InquiryFormP
             <strong style={{ color: "var(--text-1)" }}>24 hours</strong>.
           </p>
         </div>
+        {inquiryReference && <p className="text-sm font-semibold" style={{ color: "var(--blue)" }}>
+          Inquiry reference: {inquiryReference}
+        </p>}
         <div className="flex flex-col sm:flex-row gap-3 mt-2">
           <button
             onClick={handleReset}
@@ -316,13 +360,6 @@ export default function InquiryForm({ onSuccess, compact = false }: InquiryFormP
           >
             Back to Hominode
           </button>
-          <a
-            href="mailto:hominodecare@gmail.com"
-            className="px-7 py-3 rounded-xl text-sm font-medium transition-all theme-transition"
-            style={{ background: "var(--bg-3)", border: "1px solid var(--border)", color: "var(--text-2)" }}
-          >
-            Email us directly
-          </a>
         </div>
         <style>{`
           @keyframes scale-in {
@@ -567,6 +604,15 @@ export default function InquiryForm({ onSuccess, compact = false }: InquiryFormP
         </div>
       )}
 
+      {/* ── Verified human submission ── */}
+      {TURNSTILE_SITE_KEY ? (
+        <div ref={captchaContainer} aria-label="Human verification for inquiry" />
+      ) : (
+        <p role="alert" className="text-sm" style={{ color: "#DC2626" }}>
+          Form verification has not been configured yet.
+        </p>
+      )}
+
       {/* ── Privacy note ── */}
       <p className="text-xs leading-relaxed" style={{ color: "var(--text-3)" }}>
         By submitting, you agree to our{" "}
@@ -583,7 +629,7 @@ export default function InquiryForm({ onSuccess, compact = false }: InquiryFormP
       {/* ── Submit button ── */}
       <button
         type="submit"
-        disabled={status === "sending"}
+        disabled={status === "sending" || !TURNSTILE_SITE_KEY || !captchaToken}
         className="w-full py-3.5 rounded-xl text-sm font-semibold text-white btn-primary focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400 focus-visible:ring-offset-2 disabled:opacity-60 disabled:cursor-not-allowed transition-all"
         aria-busy={status === "sending"}
       >
@@ -605,31 +651,6 @@ export default function InquiryForm({ onSuccess, compact = false }: InquiryFormP
         )}
       </button>
 
-      {/* ── Alt direct email ── */}
-      <div className="flex items-center gap-3">
-        <div className="flex-1 h-px" style={{ background: "var(--border)" }} />
-        <span className="text-xs" style={{ color: "var(--text-3)" }}>or reach us directly</span>
-        <div className="flex-1 h-px" style={{ background: "var(--border)" }} />
-      </div>
-      <a
-        href="mailto:hominodecare@gmail.com"
-        className="flex items-center justify-center gap-2 py-2.5 rounded-xl text-sm font-medium transition-all theme-transition focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400"
-        style={{ background: "var(--bg-2)", border: "1px solid var(--border)", color: "var(--text-2)" }}
-        onMouseEnter={e => {
-          (e.currentTarget as HTMLElement).style.borderColor = "var(--blue)";
-          (e.currentTarget as HTMLElement).style.color = "var(--blue)";
-        }}
-        onMouseLeave={e => {
-          (e.currentTarget as HTMLElement).style.borderColor = "var(--border)";
-          (e.currentTarget as HTMLElement).style.color = "var(--text-2)";
-        }}
-      >
-        <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-          <rect x="1" y="3" width="14" height="10" rx="2" stroke="currentColor" strokeWidth="1.4" />
-          <path d="M1 5l7 5 7-5" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" />
-        </svg>
-        hominodecare@gmail.com
-      </a>
     </form>
   );
 }

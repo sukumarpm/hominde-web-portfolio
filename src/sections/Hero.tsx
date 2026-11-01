@@ -57,7 +57,7 @@ function DashboardPreview() {
         >
           <div className="flex items-center gap-1.5 px-2 mb-3">
             <img
-              src="/hominode-mark.svg"
+              src="/logo.png"
               alt=""
               className="w-5 h-5 object-contain"
             />
