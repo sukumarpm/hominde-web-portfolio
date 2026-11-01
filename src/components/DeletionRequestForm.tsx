@@ -11,6 +11,8 @@ declare global { interface Window { turnstile?: Turnstile } }
 const ENDPOINT = import.meta.env.VITE_DELETION_REQUEST_API_URL ||
   "https://asia-southeast1-hominode-prod.cloudfunctions.net/submitPublicAccountDeletionRequest";
 const SITE_KEY = import.meta.env.VITE_TURNSTILE_SITE_KEY || "";
+const COMMUNITIES_ENDPOINT = "https://asia-southeast1-hominode-prod.cloudfunctions.net/listPublicDeletionCommunities";
+type CommunityOption = { id: string; name: string };
 
 export default function DeletionRequestForm() {
   const captchaContainer = useRef<HTMLDivElement>(null);
@@ -19,6 +21,25 @@ export default function DeletionRequestForm() {
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
   const [reference, setReference] = useState("");
+  const [communities, setCommunities] = useState<CommunityOption[]>([]);
+  const [loadingCommunities, setLoadingCommunities] = useState(true);
+  const [communitiesError, setCommunitiesError] = useState("");
+
+  useEffect(() => {
+    const controller = new AbortController();
+    fetch(COMMUNITIES_ENDPOINT, { signal: controller.signal, cache: "no-store" })
+      .then(async response => {
+        if (!response.ok) throw new Error("Community directory unavailable.");
+        return response.json() as Promise<{ communities: CommunityOption[] }>;
+      })
+      .then(data => {
+        const rows = Array.isArray(data.communities) ? data.communities : [];
+        setCommunities(rows.filter(row => typeof row.id === "string" && typeof row.name === "string"));
+      })
+      .catch(error => { if (!controller.signal.aborted) setCommunitiesError(error.message || "Unable to load communities."); })
+      .finally(() => { if (!controller.signal.aborted) setLoadingCommunities(false); });
+    return () => controller.abort();
+  }, []);
 
   useEffect(() => {
     if (!SITE_KEY || !captchaContainer.current) return;
@@ -69,7 +90,7 @@ export default function DeletionRequestForm() {
         method: "POST", headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           name: data.get("name"), email: data.get("email"), phone: data.get("phone"), contactPhone: data.get("contactPhone"),
-          community: data.get("community"), unit: data.get("unit"),
+          communityId: data.get("communityId"), unit: data.get("unit"),
           confirmed: data.get("confirmed") === "on", website: data.get("website"),
           captchaToken,
         }),
@@ -97,7 +118,7 @@ export default function DeletionRequestForm() {
         <span>HOMINODE</span>
       </div>
       <h2>Request submitted</h2>
-      <p>We received your request for account deletion. Our team will review it and contact you to verify ownership before taking further action.</p>
+      <p>We received your request for account deletion. The selected community has been notified and may contact you to verify your request.</p>
       <p><strong>Reference number: <span className="deletion-ref">{reference}</span></strong></p>
       <p>Keep this number for follow-up. Your account has not been deleted yet.</p>
     </section>
@@ -116,15 +137,22 @@ export default function DeletionRequestForm() {
         <label>Contact email <span aria-hidden="true">*</span><input name="email" type="email" autoComplete="email" maxLength={254} required /></label>
         <label>Registered phone number <span aria-hidden="true">*</span><input name="phone" type="tel" autoComplete="off" inputMode="tel" maxLength={32} placeholder="Number used to register (even if inactive)" required /></label>
         <label>Current contact phone number <span aria-hidden="true">*</span><input name="contactPhone" type="tel" autoComplete="tel" inputMode="tel" maxLength={32} placeholder="e.g. +639991234567" required /><small className="deletion-field-hint">Number we can reach you on now. If it is the same as your registered number, enter it again.</small></label>
-        <label>Community / society <span aria-hidden="true">*</span><input name="community" type="text" minLength={2} maxLength={120} required /></label>
+        <label>Community / society <span aria-hidden="true">*</span>
+          <select name="communityId" required defaultValue="" disabled={loadingCommunities || !!communitiesError}>
+            <option value="">{loadingCommunities ? "Loading communities..." : "Select your community"}</option>
+            {communities.map(item => <option key={item.id} value={item.id}>{item.name}</option>)}
+          </select>
+        </label>
+        {communitiesError && <p className="deletion-form-error" role="alert">{communitiesError}</p>}
+        {!loadingCommunities && !communitiesError && !communities.length && <p className="deletion-form-error" role="alert">No communities are currently configured to receive requests.</p>}
         <label>Building / unit <span aria-hidden="true">*</span><input name="unit" type="text" minLength={2} maxLength={80} required /></label>
         <label className="deletion-honeypot" aria-hidden="true">Website<input name="website" tabIndex={-1} autoComplete="off" /></label>
         <label className="deletion-confirm"><input type="checkbox" name="confirmed" required /><span>I confirm that I am requesting deletion of my Hominode resident account. I understand Hominode may need to verify ownership and retain records required by law or outstanding obligations.</span></label>
         {SITE_KEY ? <div ref={captchaContainer} className="deletion-turnstile" aria-label="Human verification" /> : <p className="deletion-form-error" role="alert">Form verification has not been configured yet.</p>}
         {error && <p className="deletion-form-error" role="alert">{error}</p>}
-        <button type="submit" disabled={busy || !SITE_KEY || !captchaToken}>{busy ? "Submitting…" : "Submit request"}</button>
+        <button type="submit" disabled={busy || !SITE_KEY || !captchaToken || loadingCommunities || !!communitiesError || !communities.length}>{busy ? "Submitting…" : "Submit request"}</button>
       </form>
-      <p className="deletion-form-footnote">Submitting does not immediately delete your account. We will contact you using your current contact phone number or contact email.</p>
+      <p className="deletion-form-footnote">Submitting does not immediately delete your account. The selected community may contact you using your current phone number or contact email.</p>
     </section>
   );
 }
