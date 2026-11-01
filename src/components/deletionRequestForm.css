@@ -79,3 +79,21 @@
 
 /* Phase 2D.4: follow-up number help text (no card/grid sizing changes) */
 .deletion-request-form .deletion-field-hint { display: block; margin-top: 6px; color: #57677a; font-size: 12px; font-weight: 400; line-height: 1.45; }
+
+/* Community selector inherits the existing deletion form input styling. */
+.deletion-request-form form > label > select {
+  display: block;
+  width: 100%;
+  min-width: 0;
+  min-height: 42px;
+  margin-top: 6px;
+  padding: 10px 14px;
+  border: 1px solid #b9c9d8;
+  border-radius: 10px;
+  background: #fff;
+  color: #13243a;
+  font: inherit;
+  font-size: 16px;
+  font-weight: 400;
+}
+.deletion-request-form select:focus-visible { outline: 3px solid #72bee6; outline-offset: 2px; }
