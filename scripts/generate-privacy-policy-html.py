@@ -20,7 +20,10 @@ PAGE_FURNITURE = re.compile(
     r"^(?:Page\s+\d+(?:\s+of\s+\d+)?|HOMINODE\s*\|\s*Marantrix)$", re.I
 )
 HEADING = re.compile(r"^([1-9]\d?(?:\.\d+)*)\.\s+(.{3,120})$")
-BULLET = re.compile(r"^[•●▪–-]\s+")
+# PDF extraction can render list markers as a striped-square glyph (▤),
+# including several markers on a single line. Match the literal source glyphs,
+# then represent each item with semantic HTML <li> tags.
+BULLET_MARKER = re.compile(r"[•●▪■◾▫‣⁃▤▥▦▧▨▩☰\uf0a7\uf0b7]")
 SOURCE_TITLE = {"hominode", "privacy policy"}
 
 
@@ -64,9 +67,21 @@ def extract_structure(pdf_text: str) -> list[tuple[str, str | list[str]]]:
             flush_paragraph()
             flush_bullets()
             items.append(("heading", line))
-        elif BULLET.match(line):
+        elif BULLET_MARKER.search(line):
+            # pdftotext -layout may combine multiple list entries on ONE
+            # line, e.g. "▤ First item ▤ Second item ▤ Third item".
+            # Split on each PDF marker instead of rendering the glyph inline.
+            matches = list(BULLET_MARKER.finditer(line))
+            prefix = line[:matches[0].start()].strip()
+            if prefix:
+                flush_bullets()
+                paragraph.append(prefix)
             flush_paragraph()
-            bullets.append(line)
+            for index, match in enumerate(matches):
+                end = matches[index + 1].start() if index + 1 < len(matches) else len(line)
+                item = line[match.end():end].strip()
+                if item:
+                    bullets.append(item)
         elif bullets:
             bullets[-1] += " " + line  # Wrapped bullet continuation.
         else:
@@ -74,11 +89,13 @@ def extract_structure(pdf_text: str) -> list[tuple[str, str | list[str]]]:
     flush_paragraph()
     flush_bullets()
 
-    source_words = normalize(" ".join(content))
-    recovered_words = normalize(" ".join(
+    # Bullets are presentation markers, not policy words. Compare the
+    # substantive text before/after formatting to guard against omissions.
+    source_words = normalize(BULLET_MARKER.sub(" ", " ".join(content)))
+    recovered_words = normalize(BULLET_MARKER.sub(" ", " ".join(
         " ".join(value) if kind == "bullets" else str(value)
         for kind, value in items
-    ))
+    )))
     sections = sum(kind == "heading" for kind, _ in items)
     if source_words != recovered_words:
         raise ValueError("Policy text changed during formatting; refusing to publish")
@@ -160,7 +177,8 @@ TEMPLATE = """<!doctype html>
     h2 { font-size: clamp(19px, 2.4vw, 23px); line-height: 1.42; color: #123d66; letter-spacing: -.015em; margin: 0 0 13px; font-weight: 750; }
     .policy-section p { font-size: 15px; line-height: 1.85; margin: 0 0 15px; overflow-wrap: anywhere; }
     .policy-section p:last-child { margin-bottom: 0; }
-    .policy-section ul { margin: 3px 0 16px; padding-left: 24px; }
+    .policy-section ul { margin: 8px 0 18px; padding-left: 28px; list-style-type: disc; list-style-position: outside; }
+    .policy-section li::marker { color: #0e84aa; }
     .policy-section li { font-size: 15px; padding-left: 3px; margin-bottom: 9px; line-height: 1.8; }
     footer { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px 20px; margin: 29px 0 0; color: #64748b; font-size: 13px; }
     @media (max-width: 620px) { .header-inner { padding: 14px 18px; } .header-links { gap: 15px; } main { padding: 28px 14px 54px; } .toc-links { grid-template-columns: 1fr; } article { border-radius: 12px; } }
