@@ -150,16 +150,64 @@ TEMPLATE = """<!doctype html>
   <link rel="icon" type="image/png" href="/logo.png">
   <title>Privacy Policy | Hominode</title>
   <style>
+    @import url("https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap");
     :root { color-scheme: light; font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; scroll-behavior: smooth; }
     * { box-sizing: border-box; }
     body { margin: 0; color: #26374d; background: #f5f8fc; line-height: 1.72; -webkit-font-smoothing: antialiased; }
     a { color: #0e4778; text-underline-offset: 3px; }
     a:hover { color: #075e91; }
-    .site-header { background: #fff; border-bottom: 1px solid #dde6ee; }
-    .header-inner { max-width: 1030px; margin: auto; padding: 18px 24px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px; }
-    .brand { display: inline-flex; align-items: center; gap: 12px; font-weight: 800; font-size: 19px; text-decoration: none; color: #0e4778; letter-spacing: .03em; }
-    .brand img { width: 38px; height: 38px; object-fit: contain; }
-    .header-links { display: flex; flex-wrap: wrap; gap: 22px; font-size: 14px; font-weight: 600; }
+    /* Match the marketing homepage navigation while keeping the legal page static. */
+    .site-header { position: sticky; top: 0; z-index: 100; background: rgba(255,255,255,.96); border-bottom: 1px solid #e4edf3; backdrop-filter: blur(20px); }
+    .header-inner { max-width: 1280px; min-height: 64px; margin: auto; padding: 0 24px; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+    .brand { display: inline-flex; align-items: center; gap: 8px; flex-shrink: 0; font: 700 17px/1.2 "Instrument Sans", Inter, sans-serif; letter-spacing: -.025em; text-decoration: none; color: #111e32; }
+    .brand-icon { display: inline-flex; align-items: center; justify-content: center; width: 36px; height: 36px; flex-shrink: 0; overflow: hidden; border-radius: 12px; background: #04152f; }
+    .brand img { width: 100%; height: 100%; object-fit: cover; transform: scale(1.3); }
+    .header-nav, .header-actions { display: flex; align-items: center; }
+    .header-nav { gap: 2px; }
+    .header-nav a, .login-link { display: inline-flex; align-items: center; min-height: 36px; padding: 0 12px; border-radius: 8px; color: #46576d; font-size: 14px; font-weight: 500; text-decoration: none; white-space: nowrap; }
+    .header-nav a:hover, .login-link:hover { color: #102c4e; background: #edf4f7; }
+    .header-actions { gap: 8px; }
+    .header-actions a { white-space: nowrap; }
+    .theme-toggle, .menu-toggle { display: inline-grid; width: 36px; height: 36px; place-items: center; color: #46576d; background: #edf4f7; border: 1px solid #dde8ee; border-radius: 9px; cursor: pointer; font-size: 18px; }
+    .theme-toggle:hover, .menu-toggle:hover { color: #0e4778; }
+    .cta-outline, .cta-primary { display: inline-flex; align-items: center; justify-content: center; min-height: 36px; padding: 0 15px; border-radius: 10px; font-size: 14px; font-weight: 650; text-decoration: none; }
+    .cta-outline { border: 2px solid #0e4778; background: transparent; color: #0e4778; }
+    .cta-outline:hover { background: #eaf7fa; }
+    .cta-primary { background: linear-gradient(110deg,#0e4778,#248db4); color: white; border: 1px solid transparent; box-shadow: 0 4px 12px rgba(14,71,120,.18); }
+    .cta-primary:hover { filter: brightness(1.08); color: white; }
+    .menu-toggle { display: none; }
+    .mobile-menu { border-top: 1px solid #e4edf3; padding: 12px 24px 20px; background: inherit; }
+    .mobile-menu[hidden] { display: none !important; }
+    .mobile-links, .mobile-actions { display: flex; flex-wrap: wrap; gap: 8px; }
+    .mobile-links { margin-bottom: 12px; }
+    .mobile-links a { color: #46576d; padding: 8px 10px; border-radius: 8px; text-decoration: none; }
+    .mobile-actions { padding-top: 12px; border-top: 1px solid #e4edf3; }
+    .mobile-actions .login-link { padding: 0 12px; }
+    a:focus-visible, button:focus-visible { outline: 3px solid #2d91bd; outline-offset: 3px; }
+    @media (max-width: 1110px) {
+      .header-nav, .header-actions > .login-link, .header-actions > .cta-outline, .header-actions > .cta-primary { display: none; }
+      .menu-toggle { display: inline-grid; }
+    }
+    @media (max-width: 620px) { .header-inner { padding: 0 18px; } .mobile-menu { padding: 12px 18px 20px; } }
+    html[data-theme="dark"] { color-scheme: dark; }
+    html[data-theme="dark"] body { color: #dce8f6; background: #061c4c; }
+    html[data-theme="dark"] .site-header, html[data-theme="dark"] .mobile-menu { background: rgba(4,21,47,.97); border-color: #284361; }
+    html[data-theme="dark"] .brand { color: #f3f8fd; }
+    html[data-theme="dark"] .header-nav a, html[data-theme="dark"] .login-link, html[data-theme="dark"] .mobile-links a { color: #c0d0e2; }
+    html[data-theme="dark"] .header-nav a:hover, html[data-theme="dark"] .login-link:hover { color: white; background: #12395a; }
+    html[data-theme="dark"] .theme-toggle, html[data-theme="dark"] .menu-toggle { color: #dce8f6; background: #082a46; border-color: #284361; }
+    html[data-theme="dark"] .cta-outline { color: #6bc4e3; border-color: #6bc4e3; }
+    html[data-theme="dark"] .cta-outline:hover { background: #12395a; }
+    html[data-theme="dark"] .mobile-actions { border-color: #284361; }
+    html[data-theme="dark"] h1, html[data-theme="dark"] h2, html[data-theme="dark"] .toc strong { color: #e2edf9; }
+    html[data-theme="dark"] .subtitle, html[data-theme="dark"] footer { color: #adc1d7; }
+    html[data-theme="dark"] article { background: #0b294a; border-color: #284361; }
+    html[data-theme="dark"] .policy-preface, html[data-theme="dark"] .toc { background: #123451; border-color: #315777; color: #c0d0e2; }
+    html[data-theme="dark"] .policy-section { border-color: #284361; }
+    html[data-theme="dark"] a { color: #75c7e7; }
+    html[data-theme="dark"] .brand { color: #f3f8fd; }
+    html[data-theme="dark"] .cta-primary { color: white; }
+    html[data-theme="dark"] .header-nav a, html[data-theme="dark"] .login-link { color: #c0d0e2; }
     main { max-width: 900px; margin: auto; padding: 42px 20px 70px; }
     .eyebrow { font-size: 12px; font-weight: 750; text-transform: uppercase; color: #087da4; letter-spacing: .12em; margin: 0 0 8px; }
     h1 { font-size: clamp(30px, 4.8vw, 42px); color: #102c4e; line-height: 1.17; letter-spacing: -.035em; margin: 0 0 10px; }
@@ -172,7 +220,7 @@ TEMPLATE = """<!doctype html>
     .toc strong { display: block; font-size: 14px; margin-bottom: 12px; color: #102c4e; }
     .toc-links { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 8px 22px; }
     .toc a { font-size: 13.5px; text-decoration: none; }
-    .policy-section { scroll-margin-top: 24px; border-top: 1px solid #e7edf4; padding-top: 25px; margin-top: 25px; }
+    .policy-section { scroll-margin-top: 84px; border-top: 1px solid #e7edf4; padding-top: 25px; margin-top: 25px; }
     .policy-section:first-of-type { border-top: 0; padding-top: 0; margin-top: 0; }
     h2 { font-size: clamp(19px, 2.4vw, 23px); line-height: 1.42; color: #123d66; letter-spacing: -.015em; margin: 0 0 13px; font-weight: 750; }
     .policy-section p { font-size: 15px; line-height: 1.85; margin: 0 0 15px; overflow-wrap: anywhere; }
@@ -181,15 +229,46 @@ TEMPLATE = """<!doctype html>
     .policy-section li::marker { color: #0e84aa; }
     .policy-section li { font-size: 15px; padding-left: 3px; margin-bottom: 9px; line-height: 1.8; }
     footer { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px 20px; margin: 29px 0 0; color: #64748b; font-size: 13px; }
-    @media (max-width: 620px) { .header-inner { padding: 14px 18px; } .header-links { gap: 15px; } main { padding: 28px 14px 54px; } .toc-links { grid-template-columns: 1fr; } article { border-radius: 12px; } }
-    @media print { body { background: white; } main { max-width: none; padding: 0; } article { border: 0; box-shadow: none; padding: 0; } .toc { display: none; } }
+    @media (max-width: 620px) { main { padding: 28px 14px 54px; } .toc-links { grid-template-columns: 1fr; } article { border-radius: 12px; } }
+    @media print { body { background: white; } .site-header { display: none; } main { max-width: none; padding: 0; } article { border: 0; box-shadow: none; padding: 0; } .toc { display: none; } }
   </style>
 </head>
 <body>
-  <header class="site-header"><div class="header-inner">
-    <a class="brand" href="/" aria-label="Hominode home"><img src="/logo.png" alt="">HOMINODE</a>
-    <nav class="header-links" aria-label="Legal navigation"><a href="/">Home</a><a href="/account-deletion">Account deletion</a></nav>
-  </div></header>
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand" href="/" aria-label="Hominode home">
+        <span class="brand-icon" aria-hidden="true"><img src="/logo.png" alt=""></span>
+        HOMINODE
+      </a>
+      <nav class="header-nav" aria-label="Main navigation">
+        <a href="/#product">Product</a>
+        <a href="/#how-it-works">Solutions</a>
+        <a href="/#features">Features</a>
+        <a href="/#security-platform">Security</a>
+        <a href="/#pricing">Pricing</a>
+        <a href="/#faq">Resources</a>
+      </nav>
+      <div class="header-actions">
+        <button class="theme-toggle" type="button" aria-label="Switch to dark mode" title="Switch to dark mode">☾</button>
+        <a class="login-link" href="/#login">Login</a>
+        <a class="cta-outline" href="/#contact">Book a Demo</a>
+        <a class="cta-primary" href="/#contact">Get Started</a>
+        <button class="menu-toggle" type="button" aria-label="Open navigation menu" aria-expanded="false" aria-controls="privacy-mobile-menu">☰</button>
+      </div>
+    </div>
+    <nav class="mobile-menu" id="privacy-mobile-menu" aria-label="Mobile navigation" hidden>
+      <div class="mobile-links">
+        <a href="/#product">Product</a><a href="/#how-it-works">Solutions</a>
+        <a href="/#features">Features</a><a href="/#security-platform">Security</a>
+        <a href="/#pricing">Pricing</a><a href="/#faq">Resources</a>
+      </div>
+      <div class="mobile-actions">
+        <a class="login-link" href="/#login">Login</a>
+        <a class="cta-outline" href="/#contact">Book a Demo</a>
+        <a class="cta-primary" href="/#contact">Get Started</a>
+      </div>
+    </nav>
+  </header>
   <main>
     <p class="eyebrow">Legal &amp; privacy</p>
     <h1>Privacy Policy</h1>
@@ -204,6 +283,27 @@ TEMPLATE = """<!doctype html>
       <span><a href="/assets/HOMINODE_Privacy_Policy_v1.0.pdf">Download original PDF</a> · <a href="/account-deletion">Request account deletion</a></span>
     </footer>
   </main>
+  <script>
+    // Keep this legal document standalone; the homepage handles interactive login.
+    (function () {
+      const menuButton = document.querySelector(".menu-toggle");
+      const menu = document.querySelector("#privacy-mobile-menu");
+      menuButton.addEventListener("click", function () {
+        const opening = menuButton.getAttribute("aria-expanded") !== "true";
+        menuButton.setAttribute("aria-expanded", String(opening));
+        menuButton.setAttribute("aria-label", opening ? "Close navigation menu" : "Open navigation menu");
+        menu.hidden = !opening;
+      });
+      const toggle = document.querySelector(".theme-toggle");
+      toggle.addEventListener("click", function () {
+        const dark = document.documentElement.getAttribute("data-theme") !== "dark";
+        document.documentElement.setAttribute("data-theme", dark ? "dark" : "light");
+        toggle.textContent = dark ? "☀" : "☾";
+        toggle.setAttribute("aria-label", dark ? "Switch to light mode" : "Switch to dark mode");
+        toggle.setAttribute("title", dark ? "Switch to light mode" : "Switch to dark mode");
+      });
+    }());
+  </script>
 </body>
 </html>
 """
