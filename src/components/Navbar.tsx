@@ -30,6 +30,19 @@ export default function Navbar({ dark, onToggleDark, onContact }: NavbarProps) {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [loginOpen, setLoginOpen] = useState(false);
 
+  // Standalone legal pages link to /#login; open the same homepage
+  // login chooser rather than leaving visitors at the hero section.
+  useEffect(() => {
+    const openFromHash = () => {
+      if (window.location.hash !== "#login") return;
+      setLoginOpen(true);
+      window.history.replaceState(null, "", window.location.pathname + window.location.search);
+    };
+    openFromHash();
+    window.addEventListener("hashchange", openFromHash);
+    return () => window.removeEventListener("hashchange", openFromHash);
+  }, []);
+
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
     window.addEventListener("scroll", onScroll, { passive: true });
