@@ -13,6 +13,26 @@ spec.loader.exec_module(generator)
 
 
 class PdfBulletFormattingTests(unittest.TestCase):
+    def test_static_legal_header_matches_marketing_navigation(self):
+        page = generator.TEMPLATE
+        for label, target in (
+            ("Product", "/#product"),
+            ("Solutions", "/#how-it-works"),
+            ("Features", "/#features"),
+            ("Security", "/#security-platform"),
+            ("Pricing", "/#pricing"),
+            ("Resources", "/#faq"),
+            ("Login", "/#login"),
+            ("Book a Demo", "/#contact"),
+            ("Get Started", "/#contact"),
+        ):
+            self.assertIn(f'href="{target}">{label}</a>', page)
+        self.assertIn('class="brand-icon"', page)
+        self.assertIn('src="/logo.png"', page)
+        self.assertIn('aria-expanded="false"', page)
+        self.assertIn('class="theme-toggle"', page)
+        self.assertNotIn('class="header-links"', page)
+
     def test_inline_pdf_markers_become_individual_list_items(self):
         sample = (
             "HOMINODE | Marantrix\n"
